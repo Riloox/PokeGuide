@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { PcMon } from '../models';
 import { getPokemon } from '../lib/pokeapi';
+import { TypeBadge } from './TypeBadge';
 
 export default function PcGrid({ pc }: { pc: PcMon[] }) {
   useEffect(() => {
@@ -22,10 +23,14 @@ export default function PcGrid({ pc }: { pc: PcMon[] }) {
       <h2 className="text-xl mb-2">PC</h2>
       <div className="grid grid-cols-6 gap-2 max-h-64 overflow-y-auto">
         {pc.map((m, i) => (
-          <div key={i} className="border p-1 bg-gray-800 text-xs">
-            {m.sprite && <img src={m.sprite} alt={m.species} className="w-12 h-12" />}
+          <div key={i} className="border-2 border-white p-1 bg-gray-800 text-xs text-center">
+            {m.sprite && <img src={m.sprite} alt={m.species} className="w-12 h-12 mx-auto" />}
             <div>{m.nick || m.species}</div>
-            <div>{m.types.join('/')}</div>
+            <div className="flex justify-center gap-1 mt-1">
+              {m.types.map((t) => (
+                <TypeBadge key={t} type={t} />
+              ))}
+            </div>
           </div>
         ))}
       </div>

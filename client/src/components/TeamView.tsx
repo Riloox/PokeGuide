@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { TeamMon } from '../models';
 import { getPokemon } from '../lib/pokeapi';
+import { TypeBadge } from './TypeBadge';
 
 export default function TeamView({ team }: { team: TeamMon[] }) {
   useEffect(() => {
@@ -22,13 +23,17 @@ export default function TeamView({ team }: { team: TeamMon[] }) {
       <h2 className="text-xl mb-2">Team</h2>
       <div className="grid grid-cols-3 gap-2">
         {team.map((m, i) => (
-          <div key={i} className="border p-2 bg-gray-800">
-            {m.sprite && <img src={m.sprite} alt={m.species} className="w-16 h-16" />}
-            <div>{m.nick || m.species}</div>
-            <div className="text-xs">{m.types.join('/')}</div>
-            {m.ability && <div className="text-xs">Ability: {m.ability}</div>}
+          <div key={i} className="border-2 border-white p-2 bg-gray-800 text-center">
+            {m.sprite && <img src={m.sprite} alt={m.species} className="w-16 h-16 mx-auto" />}
+            <div className="text-sm mt-1">{m.nick || m.species}</div>
+            <div className="flex justify-center gap-1 text-xs mt-1">
+              {m.types.map((t) => (
+                <TypeBadge key={t} type={t} />
+              ))}
+            </div>
+            {m.ability && <div className="text-xs mt-1">Ability: {m.ability}</div>}
             {m.item && <div className="text-xs">Item: {m.item}</div>}
-            <ul className="text-xs list-disc ml-4">
+            <ul className="text-xs list-disc ml-4 text-left">
               {m.moves.map((mv, j) => (
                 <li key={j}>{mv}</li>
               ))}

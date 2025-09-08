@@ -23,10 +23,17 @@ export async function getPokemon(idOrName: string) {
   const res = await fetch(`${base}/pokemon/${idOrName}`);
   if (!res.ok) throw new Error('pokeapi');
   const data = await res.json();
+
+  const bw =
+    data.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default ||
+    data.sprites.versions?.['generation-v']?.['black-white']?.front_default ||
+    data.sprites.front_default;
+
   const out = {
     types: data.types.map((t: any) => t.type.name),
-    sprite: data.sprites.other['official-artwork'].front_default || data.sprites.front_default,
+    sprite: bw || data.sprites.other['official-artwork'].front_default,
   };
+
   cacheSet(key, out);
   return out;
 }

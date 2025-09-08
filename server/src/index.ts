@@ -7,7 +7,6 @@ const app = express();
 app.use(cors());
 app.use(compression());
 
-
 app.get('/health', (_req: Request, res: Response) => {
   res.json({ ok: true });
 });

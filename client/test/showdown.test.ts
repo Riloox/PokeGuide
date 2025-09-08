@@ -15,4 +15,12 @@ describe('parseShowdown', () => {
       moves: ['Thunderbolt', 'Quick Attack'],
     });
   });
+
+  it('handles CRLF separators', () => {
+    const txt =
+      'One (Bulbasaur)\r\nAbility: Overgrow\r\n- Tackle\r\n\r\nTwo (Charmander)\r\nAbility: Blaze\r\n- Ember';
+    const team = parseShowdown(txt);
+    expect(team.length).toBe(2);
+    expect(team[1].species).toBe('charmander');
+  });
 });
