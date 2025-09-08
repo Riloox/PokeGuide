@@ -1,0 +1,20 @@
+{
+  "name": "nuzlocke-generalizer",
+  "private": true,
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "dev": "concurrently -k \"npm run --workspace server dev\" \"npm run --workspace client dev\"",
+    "build": "npm run --workspace client build && cp -r client/dist server/public && npm run --workspace server build",
+    "start": "node server/dist/index.cjs",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.0.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
+  }
+}
