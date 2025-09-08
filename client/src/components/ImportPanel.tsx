@@ -54,23 +54,23 @@ export default function ImportPanel({ setTeam, setPc, setTrainers, log, addLog }
   };
 
   return (
-    <div className="p-4 space-y-4">
-      <h2 className="text-xl">Import</h2>
+    <div className="p-4 space-y-4 border-2 border-white bg-gray-900">
+      <h2 className="text-xl mb-2">Import</h2>
       <div>
         <input ref={showdownRef} type="file" accept=".txt" />
-        <button className="ml-2 px-2 py-1 bg-gray-700" onClick={handleShowdown}>
+        <button className="ml-2 px-2 py-1 bg-yellow-400 text-black" onClick={handleShowdown}>
           Load
         </button>
       </div>
       <div>
         <input ref={rxdataRef} type="file" accept=".rxdata" />
-        <button className="ml-2 px-2 py-1 bg-gray-700" onClick={handleRxdata}>
+        <button className="ml-2 px-2 py-1 bg-yellow-400 text-black" onClick={handleRxdata}>
           Load
         </button>
       </div>
       <div>
         <textarea ref={trainersRef} className="w-full h-24 text-black" placeholder="Trainers JSON" />
-        <button className="mt-1 px-2 py-1 bg-gray-700" onClick={handleTrainers}>
+        <button className="mt-1 px-2 py-1 bg-yellow-400 text-black" onClick={handleTrainers}>
           Load Trainers
         </button>
       </div>

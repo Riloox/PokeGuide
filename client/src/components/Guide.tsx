@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Trainer, TeamMon, PcMon } from '../models';
 import { getPokemon, getMove, getMultiplier } from '../lib/pokeapi';
+import { TypeBadge } from './TypeBadge';
 
 interface Props {
   trainers: Trainer[];
@@ -57,7 +58,7 @@ export default function Guide({ trainers, team, pc }: Props) {
     <div className="p-4">
       <h2 className="text-xl mb-2">Guide</h2>
       {trainers.map((tr, idx) => (
-        <div key={idx} className="mb-4 border p-2 bg-gray-800">
+        <div key={idx} className="mb-4 border-2 border-white p-2 bg-gray-800">
           <div className="flex justify-between" onClick={() => setOpen(open === idx ? null : idx)}>
             <div>
               {tr.title} {tr.double && <span className="text-xs">Double</span>}
@@ -113,7 +114,13 @@ function TrainerRow({ species, moves, team }: { species: string | number; moves:
   return (
     <tr className="text-center border-t">
       <td>{sprite && <img src={sprite} alt={String(species)} className="w-12 h-12 mx-auto" />}</td>
-      <td>{types.join('/')}</td>
+      <td>
+        <div className="flex justify-center gap-1">
+          {types.map((t) => (
+            <TypeBadge key={t} type={t} />
+          ))}
+        </div>
+      </td>
       <td>
         <ul>
           {moves.map((mv, idx) => (
@@ -139,7 +146,7 @@ function MoveCell({ move }: { move: string }) {
   }, [move]);
   return (
     <li>
-      {move} {type && `(${type})`}
+      {move} {type && <TypeBadge type={type} />}
     </li>
   );
 }
