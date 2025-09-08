@@ -111,4 +111,54 @@ export function decodeMarshal(buf: Uint8Array): AnyObj {
         const len = readInt(buf, offsetObj);
         for (let i = 0; i < len; i++) {
           read();
-          read
+          read();
+        }
+        return inner;
+      }
+      default:
+        throw new Error('Unknown tag ' + tag);
+    }
+  };
+
+  // header
+  offsetObj.offset += 2; // major, minor
+  return read();
+}
+
+const normalize = (s: string | number) =>
+  typeof s === 'number'
+    ? String(s)
+    : s
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9-]/g, '-')
+        .replace(/-+/g, '-');
+
+function parseRxdata(buf: ArrayBuffer): PcMon[] {
+  const root = decodeMarshal(new Uint8Array(buf));
+  const result: PcMon[] = [];
+  const queue: any[] = [root];
+  const seen = new Set<any>();
+  while (queue.length) {
+    const node = queue.shift();
+    if (!node || typeof node !== 'object' || seen.has(node)) continue;
+    seen.add(node);
+    const species = node.species ?? node.Species;
+    if (species !== undefined) {
+      const nick = node.name ?? node.nickname;
+      const ability = node.ability;
+      const item = node.item;
+      result.push({ nick, species: normalize(species), types: [], ability, item });
+    }
+    for (const key in node) {
+      queue.push(node[key]);
+    }
+    if (Array.isArray(node)) {
+      for (const val of node) queue.push(val);
+    }
+  }
+  return result;
+}
+
+export { parseRxdata };
