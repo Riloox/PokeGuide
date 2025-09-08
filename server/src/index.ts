@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import cors from 'cors';
 import compression from 'compression';
@@ -7,7 +7,8 @@ const app = express();
 app.use(cors());
 app.use(compression());
 
-app.get('/health', (_req, res) => {
+
+app.get('/health', (_req: Request, res: Response) => {
   res.json({ ok: true });
 });
 
