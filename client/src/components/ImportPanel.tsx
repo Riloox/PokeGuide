@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { parseShowdown } from '../lib/showdown';
 import { parseRxdata } from '../lib/rxdata';
+import { parseTrainerPdf } from '../lib/trainerPdf';
 import { TeamMon, PcMon, Trainer } from '../models';
 
 interface Props {
@@ -21,6 +22,7 @@ export default function ImportPanel({
   const showdownRef = useRef<HTMLInputElement>(null);
   const rxdataRef = useRef<HTMLInputElement>(null);
   const trainersRef = useRef<HTMLTextAreaElement>(null);
+  const trainersPdfRef = useRef<HTMLInputElement>(null);
 
   const handleShowdown = async () => {
     const file = showdownRef.current?.files?.[0];
@@ -59,6 +61,19 @@ export default function ImportPanel({
     }
   };
 
+  const handleTrainerPdf = async () => {
+    const file = trainersPdfRef.current?.files?.[0];
+    if (!file) return;
+    const buf = await file.arrayBuffer();
+    try {
+      const arr = await parseTrainerPdf(buf);
+      setTrainers(arr);
+      addLog(`Parsed trainers PDF with ${arr.length} entries.`);
+    } catch {
+      addLog('Trainers PDF error');
+    }
+  };
+
   return (
     <div className="p-4 space-y-4 border-2 border-yellow-500 bg-red-900 text-yellow-200">
       <h2 className="text-xl mb-2">Import</h2>
@@ -72,6 +87,12 @@ export default function ImportPanel({
         <input ref={rxdataRef} type="file" accept=".rxdata" />
         <button className="ml-2" onClick={handleRxdata}>
           Load
+        </button>
+      </div>
+      <div>
+        <input ref={trainersPdfRef} type="file" accept="application/pdf" />
+        <button className="ml-2" onClick={handleTrainerPdf}>
+          Load Trainer PDF
         </button>
       </div>
       <div>
