@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { parseShowdown } from '../lib/showdown';
 import { parseRxdata } from '../lib/rxdata';
-import { parseTrainerPdf } from '../lib/trainerPdf';
+import defaultTrainers from '../data/trainers';
 import { TeamMon, PcMon, Trainer } from '../models';
 
 interface Props {
@@ -22,7 +22,6 @@ export default function ImportPanel({
   const showdownRef = useRef<HTMLInputElement>(null);
   const rxdataRef = useRef<HTMLInputElement>(null);
   const trainersRef = useRef<HTMLTextAreaElement>(null);
-  const trainersPdfRef = useRef<HTMLInputElement>(null);
 
   const handleShowdown = async () => {
     const file = showdownRef.current?.files?.[0];
@@ -61,17 +60,9 @@ export default function ImportPanel({
     }
   };
 
-  const handleTrainerPdf = async () => {
-    const file = trainersPdfRef.current?.files?.[0];
-    if (!file) return;
-    const buf = await file.arrayBuffer();
-    try {
-      const arr = await parseTrainerPdf(buf);
-      setTrainers(arr);
-      addLog(`Parsed trainers PDF with ${arr.length} entries.`);
-    } catch {
-      addLog('Trainers PDF error');
-    }
+  const handleDefaultTrainers = () => {
+    setTrainers(defaultTrainers);
+    addLog(`Loaded ${defaultTrainers.length} built-in trainers.`);
   };
 
   return (
@@ -90,10 +81,7 @@ export default function ImportPanel({
         </button>
       </div>
       <div>
-        <input ref={trainersPdfRef} type="file" accept="application/pdf" />
-        <button className="ml-2" onClick={handleTrainerPdf}>
-          Load Trainer PDF
-        </button>
+        <button onClick={handleDefaultTrainers}>Load Guide Trainers</button>
       </div>
       <div>
         <textarea
