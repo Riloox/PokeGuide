@@ -2,12 +2,24 @@ import { Trainer } from '../models';
 
 const decoder = new TextDecoder();
 
+const stripNulls = (s: string) => s.replace(/\u0000/g, '');
+
 const normalize = (s: string) =>
-  s
+  stripNulls(s)
     .toLowerCase()
     .normalize('NFD')
     .replace(/[^a-z0-9-]/g, '-')
-    .replace(/-+/g, '-');
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const decodeText = (data: ArrayBuffer) => {
+  const u8 = new Uint8Array(data);
+  let text = decoder.decode(u8);
+  if (text.includes('\u0000')) {
+    text = new TextDecoder('utf-16le').decode(u8);
+  }
+  return stripNulls(text);
+};
 
 export function parseTrainerText(text: string): Trainer[] {
   const trainers: Trainer[] = [];
@@ -47,7 +59,11 @@ export function parseTrainerText(text: string): Trainer[] {
 
 export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
   try {
-    const pdfjs = await import('pdfjs-dist');
+    const [pdfjs, worker] = await Promise.all([
+      import('pdfjs-dist/build/pdf'),
+      import('pdfjs-dist/build/pdf.worker?url'),
+    ]);
+    pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
     const pdf = await pdfjs.getDocument({ data }).promise;
     let text = '';
     for (let i = 1; i <= pdf.numPages; i++) {
@@ -60,7 +76,6 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
     }
     return parseTrainerText(text);
   } catch {
-    return parseTrainerText(decoder.decode(new Uint8Array(data)));
+    return parseTrainerText(decodeText(data));
   }
 }
-
