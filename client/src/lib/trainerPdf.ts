@@ -92,11 +92,17 @@ async function readPdfTextItems(data: ArrayBuffer | Uint8Array) {
   try {
     // Works if consumer installed `pdfjs-dist`
     pdfjs = await import(/* @vite-ignore */ "pdfjs-dist/build/pdf");
-    // Worker is optional if bundler inlines it; suppress if not found
+    // Worker is optional if bundler inlines it; pdfjs-dist 5+ uses an .mjs worker file
     try {
-      const workerSrc = (await import(/* @vite-ignore */ "pdfjs-dist/build/pdf.worker.js?url")).default;
+      const workerSrc = (
+        await import(
+          /* @vite-ignore */ "pdfjs-dist/build/pdf.worker.min.mjs?url"
+        )
+      ).default;
       if (pdfjs.GlobalWorkerOptions) pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore if worker not found */
+    }
   } catch (e) {
     throw new Error("pdfjs-dist not found. Install it or use parseText() fallback.");
   }
@@ -331,6 +337,9 @@ export async function parsePdf(data: ArrayBuffer | Uint8Array): Promise<ParseRes
   (res as any).debug = { pages: pages.length, lines: allLines.length, blocks: blocks.length };
   return res;
 }
+
+// Legacy alias retained for existing imports
+export const parseTrainerPdf = parsePdf;
 
 // Fallback parser: accepts plain text extracted elsewhere (no geometry), best-effort.
 export function parseText(txt: string): ParseResult {
