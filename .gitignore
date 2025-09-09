@@ -3,3 +3,4 @@ npm-debug.log
 dist
 server/public
 client/dist
+repomix-output.xml
