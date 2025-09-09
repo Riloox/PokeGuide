@@ -46,17 +46,30 @@ export function decodeMarshal(buf: Uint8Array): AnyObj {
         return false;
       case 'i':
         return readInt(buf, offsetObj);
+      case 'l': {
+        const sign = String.fromCharCode(buf[offsetObj.offset++]);
+        const len = readInt(buf, offsetObj) * 2;
+        let n = 0n;
+        for (let i = 0; i < len; i++) {
+          n += BigInt(buf[offsetObj.offset++]) << BigInt(8 * i);
+        }
+        const num = sign === '-' ? -n : n;
+        const asNum = Number(num);
+        return Number.isSafeInteger(asNum) ? asNum : num;
+      }
       case 'f': {
         const len = readInt(buf, offsetObj);
         const str = textDecoder.decode(
-          buf.slice(offsetObj.offset, offsetObj.offset + len)
+          buf.slice(offsetObj.offset, offsetObj.offset + len),
         );
         offsetObj.offset += len;
         return parseFloat(str);
       }
       case ':': {
         const len = readInt(buf, offsetObj);
-        const str = textDecoder.decode(buf.slice(offsetObj.offset, offsetObj.offset + len));
+        const str = textDecoder.decode(
+          buf.slice(offsetObj.offset, offsetObj.offset + len),
+        );
         offsetObj.offset += len;
         symbols.push(str);
         return str;
@@ -67,7 +80,9 @@ export function decodeMarshal(buf: Uint8Array): AnyObj {
       }
       case '"': {
         const len = readInt(buf, offsetObj);
-        const str = textDecoder.decode(buf.slice(offsetObj.offset, offsetObj.offset + len));
+        const str = textDecoder.decode(
+          buf.slice(offsetObj.offset, offsetObj.offset + len),
+        );
         offsetObj.offset += len;
         objects.push(str);
         return str;
@@ -111,4 +126,60 @@ export function decodeMarshal(buf: Uint8Array): AnyObj {
         const len = readInt(buf, offsetObj);
         for (let i = 0; i < len; i++) {
           read();
-          read
+          read();
+        }
+        return inner;
+      }
+      default:
+        throw new Error('Unknown tag ' + tag);
+    }
+  };
+
+  // header
+  offsetObj.offset += 2; // major, minor
+  return read();
+}
+
+const normalize = (s: string | number) =>
+  typeof s === 'number'
+    ? String(s)
+    : s
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9-]/g, '-')
+        .replace(/-+/g, '-');
+
+function parseRxdata(buf: ArrayBuffer): PcMon[] {
+  const root = decodeMarshal(new Uint8Array(buf));
+  const result: PcMon[] = [];
+  const queue: any[] = [root];
+  const seen = new Set<any>();
+  while (queue.length) {
+    const node = queue.shift();
+    if (!node || typeof node !== 'object' || seen.has(node)) continue;
+    seen.add(node);
+    const species = node['@species'] ?? node.species ?? node.Species;
+    if (species !== undefined) {
+      const nick = node['@name'] ?? node.name ?? node.nickname;
+      const ability = node['@ability'] ?? node.ability;
+      const item = node['@item'] ?? node.item;
+      result.push({
+        nick,
+        species: normalize(species),
+        types: [],
+        ability,
+        item,
+      });
+    }
+    for (const key in node) {
+      queue.push(node[key]);
+    }
+    if (Array.isArray(node)) {
+      for (const val of node) queue.push(val);
+    }
+  }
+  return result;
+}
+
+export { parseRxdata };

@@ -11,7 +11,13 @@ interface Props {
   addLog: (m: string) => void;
 }
 
-export default function ImportPanel({ setTeam, setPc, setTrainers, log, addLog }: Props) {
+export default function ImportPanel({
+  setTeam,
+  setPc,
+  setTrainers,
+  log,
+  addLog,
+}: Props) {
   const showdownRef = useRef<HTMLInputElement>(null);
   const rxdataRef = useRef<HTMLInputElement>(null);
   const trainersRef = useRef<HTMLTextAreaElement>(null);
@@ -54,27 +60,35 @@ export default function ImportPanel({ setTeam, setPc, setTrainers, log, addLog }
   };
 
   return (
-    <div className="p-4 space-y-4 border-2 border-white bg-gray-900">
+    <div className="p-4 space-y-4 border-2 border-yellow-500 bg-red-900 text-yellow-200">
       <h2 className="text-xl mb-2">Import</h2>
       <div>
         <input ref={showdownRef} type="file" accept=".txt" />
-        <button className="ml-2 px-2 py-1 bg-yellow-400 text-black" onClick={handleShowdown}>
+        <button className="ml-2" onClick={handleShowdown}>
           Load
         </button>
       </div>
       <div>
         <input ref={rxdataRef} type="file" accept=".rxdata" />
-        <button className="ml-2 px-2 py-1 bg-yellow-400 text-black" onClick={handleRxdata}>
+        <button className="ml-2" onClick={handleRxdata}>
           Load
         </button>
       </div>
       <div>
-        <textarea ref={trainersRef} className="w-full h-24 text-black" placeholder="Trainers JSON" />
-        <button className="mt-1 px-2 py-1 bg-yellow-400 text-black" onClick={handleTrainers}>
+        <textarea
+          ref={trainersRef}
+          className="w-full h-24 text-black"
+          placeholder="Trainers JSON"
+        />
+        <button className="mt-1" onClick={handleTrainers}>
           Load Trainers
         </button>
       </div>
-      <textarea className="w-full h-24 text-black" readOnly value={log.join('\n')} />
+      <textarea
+        className="w-full h-24 text-black"
+        readOnly
+        value={log.join('\n')}
+      />
     </div>
   );
 }
