@@ -19,9 +19,28 @@ export const typeColors: Record<string, string> = {
   fairy: 'bg-pink-300 text-black',
 };
 
+export const typeNames: Record<string, string> = {
+  normal: 'Normal',
+  fire: 'Fuego',
+  water: 'Agua',
+  grass: 'Planta',
+  electric: 'Eléctrico',
+  ice: 'Hielo',
+  fighting: 'Lucha',
+  poison: 'Veneno',
+  ground: 'Tierra',
+  flying: 'Volador',
+  psychic: 'Psíquico',
+  bug: 'Bicho',
+  rock: 'Roca',
+  ghost: 'Fantasma',
+  dragon: 'Dragón',
+  dark: 'Siniestro',
+  steel: 'Acero',
+  fairy: 'Hada',
+};
+
 export function TypeBadge({ type }: { type: string }) {
   const cls = typeColors[type] || 'bg-gray-500 text-white';
-  return (
-    <span className={`px-1 py-0.5 rounded ${cls}`}>{type}</span>
-  );
+  return <span className={`px-1 py-0.5 rounded ${cls}`}>{typeNames[type] || type}</span>;
 }

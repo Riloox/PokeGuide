@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import { parseShowdown } from '../lib/showdown';
 import { parseRxdata } from '../lib/rxdata';
-import { parseTrainerPdf } from '../lib/trainerPdf';
+import defaultTrainers from '../data/trainers.json';
 import { TeamMon, PcMon, Trainer } from '../models';
 
 interface Props {
@@ -19,34 +18,20 @@ export default function ImportPanel({
   log,
   addLog,
 }: Props) {
-  const showdownRef = useRef<HTMLInputElement>(null);
   const rxdataRef = useRef<HTMLInputElement>(null);
   const trainersRef = useRef<HTMLTextAreaElement>(null);
-  const trainersPdfRef = useRef<HTMLInputElement>(null);
-
-  const handleShowdown = async () => {
-    const file = showdownRef.current?.files?.[0];
-    if (!file) return;
-    const text = await file.text();
-    try {
-      const team = parseShowdown(text);
-      setTeam(team);
-      addLog(`Parsed Showdown team with ${team.length} mons.`);
-    } catch (e) {
-      addLog('Showdown error');
-    }
-  };
 
   const handleRxdata = async () => {
     const file = rxdataRef.current?.files?.[0];
     if (!file) return;
     const buf = await file.arrayBuffer();
     try {
-      const pc = parseRxdata(buf);
+      const { team, pc } = parseRxdata(buf);
+      setTeam(team);
       setPc(pc);
-      addLog(`Parsed rxdata with ${pc.length} mons.`);
+      addLog(`Se cargaron ${team.length} miembros del equipo y ${pc.length} del PC.`);
     } catch (e) {
-      addLog('rxdata error');
+      addLog('Error al leer rxdata');
     }
   };
 
@@ -55,54 +40,40 @@ export default function ImportPanel({
     try {
       const arr = JSON.parse(text);
       setTrainers(arr);
-      addLog(`Loaded ${arr.length} trainers.`);
+      addLog(`Se cargaron ${arr.length} entrenadores.`);
     } catch {
-      addLog('Trainers JSON error');
+      addLog('Error en Trainers JSON');
     }
   };
 
-  const handleTrainerPdf = async () => {
-    const file = trainersPdfRef.current?.files?.[0];
-    if (!file) return;
-    const buf = await file.arrayBuffer();
-    try {
-      const arr = await parseTrainerPdf(buf);
-      setTrainers(arr);
-      addLog(`Parsed trainers PDF with ${arr.length} entries.`);
-    } catch {
-      addLog('Trainers PDF error');
-    }
+  const handleDefaultTrainers = () => {
+    setTrainers(defaultTrainers);
+    addLog(`Se cargaron ${defaultTrainers.length} entrenadores del juego.`);
   };
 
   return (
     <div className="p-4 space-y-4 border-2 border-yellow-500 bg-red-900 text-yellow-200">
-      <h2 className="text-xl mb-2">Import</h2>
-      <div>
-        <input ref={showdownRef} type="file" accept=".txt" />
-        <button className="ml-2" onClick={handleShowdown}>
-          Load
-        </button>
-      </div>
+      <h2 className="text-xl mb-2">Importar</h2>
       <div>
         <input ref={rxdataRef} type="file" accept=".rxdata" />
         <button className="ml-2" onClick={handleRxdata}>
-          Load
+          Cargar partida
         </button>
+        <div className="text-xs mt-1">
+          Selecciona tu archivo <b>.rxdata</b> desde la carpeta "Partidas Guardadas".
+        </div>
       </div>
       <div>
-        <input ref={trainersPdfRef} type="file" accept="application/pdf" />
-        <button className="ml-2" onClick={handleTrainerPdf}>
-          Load Trainer PDF
-        </button>
+        <button onClick={handleDefaultTrainers}>Cargar entrenadores del juego</button>
       </div>
       <div>
         <textarea
           ref={trainersRef}
           className="w-full h-24 text-black"
-          placeholder="Trainers JSON"
+          placeholder="Entrenadores JSON"
         />
         <button className="mt-1" onClick={handleTrainers}>
-          Load Trainers
+          Cargar entrenadores
         </button>
       </div>
       <textarea

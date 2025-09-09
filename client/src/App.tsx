@@ -16,7 +16,7 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <header className="p-4 text-center text-2xl bg-red-900 text-yellow-100 border-b-4 border-yellow-500">
-        Nuzlocke Generalizer v1.0
+        Guía Nuzlocke v1.0
       </header>
       <ImportPanel
         setTeam={setTeam}
@@ -25,8 +25,8 @@ export default function App() {
         log={log}
         addLog={addLog}
       />
-      <TeamView team={team} />
-      <PcGrid pc={pc} />
+      <TeamView team={team} setTeam={setTeam} setPc={setPc} />
+      <PcGrid pc={pc} team={team} setTeam={setTeam} setPc={setPc} />
       <Guide trainers={trainers} team={team} pc={pc} />
     </div>
   );
