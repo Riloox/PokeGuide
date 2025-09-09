@@ -47,7 +47,10 @@ const DOUBLE_MARKERS = [
   /\b(Doble|Combate Doble)\b/i
 ];
 
-// Normalize raw text extracted from PDFs.
+// Normalize raw text extracted from PDFs.  
+// In addition to collapsing whitespace and swapping curly quotes, this strips
+// the spurious null bytes that sometimes appear when a UTF-16 document is decoded
+// as UTF-8. Without this step trainer and move names can turn into gibberish.
 const CLEAN = (s: string) =>
   s
     .replace(/\u0000/g, "")
@@ -57,6 +60,7 @@ const CLEAN = (s: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
+// Expose the cleaner for unit tests.
 export const normalizeText = CLEAN;
 
 const isUpperish = (s: string) => {
@@ -65,6 +69,7 @@ const isUpperish = (s: string) => {
 };
 
 const looksLikeSpeciesCell = (s: string) => {
+  // Uppercase-ish name, may include hyphens or MEGA tag on preceding line
   const t = CLEAN(s).replace(/^MEGA\s+/, "");
   return isUpperish(t) && !TYPE_WORDS.has(t) && !/^(OBJ|HAB|Nivel|Obj|Hab)\b/i.test(t);
 };
@@ -75,15 +80,22 @@ const asInt = (s: string | undefined) => {
   return m ? parseInt(m[1], 10) : undefined;
 };
 
+// Normalize Spanish names that sometimes use accents or casing
 const normMove = (s: string) => CLEAN(s).toLowerCase();
 const normSpecies = (s: string) => CLEAN(s).replace(/\s+/g, " ").trim();
 
 // -------------------------- PDF.js adapter --------------------------
 
+/**
+ * Read text items (with x,y) from a PDF binary using pdfjs-dist (if available).
+ * Returns items grouped by page, each item = {str, x, y, width}.
+ */
 async function readPdfTextItems(data: ArrayBuffer | Uint8Array) {
   let pdfjs: any;
   try {
+    // Works if consumer installed `pdfjs-dist`
     pdfjs = await import(/* @vite-ignore */ "pdfjs-dist/build/pdf.mjs");
+    // Worker is optional if bundler inlines it; pdfjs-dist 5+ ships an ESM worker file
     try {
       const workerSrc = (
         await import(
@@ -116,15 +128,19 @@ async function readPdfTextItems(data: ArrayBuffer | Uint8Array) {
   return pages;
 }
 
-// … keep rest of parsing code, assembleResult, extractMonsFromBlock, etc …
+// -------------------------- Parsing helpers --------------------------
+// (itemsToLines, clusterColumns, blockToColumns, splitByBattlesFromLines, extractMonsFromBlock, assembleResult)
+// … same as in codex version you kept …
 
 // -------------------------- Public API --------------------------
 
 export async function parsePdf(data: ArrayBuffer | Uint8Array): Promise<ParseResult> {
   const pages = await readPdfTextItems(data);
+  // Flatten all lines from all pages
   const allLines: { y:number;text:string;items:any[] }[] = [];
   for (const pg of pages) {
     const lines = itemsToLines(pg.items);
+    // Drop empty
     allLines.push(...lines.filter(l => l.text));
   }
   const blocks = splitByBattlesFromLines(allLines);
@@ -133,6 +149,7 @@ export async function parsePdf(data: ArrayBuffer | Uint8Array): Promise<ParseRes
   return res;
 }
 
+// Legacy wrapper retained for existing imports that expect an array.
 export async function parseTrainerPdf(
   data: ArrayBuffer | Uint8Array,
 ): Promise<Trainer[]> {
@@ -140,10 +157,13 @@ export async function parseTrainerPdf(
   return res.trainers;
 }
 
+// Fallback parser: accepts plain text extracted elsewhere (no geometry), best-effort.
 export function parseText(txt: string): ParseResult {
   const lines = CLEAN(txt).split(/\n+/).map(L => ({ y: 0, text: L, items: [] as any[] }));
   const blocks = splitByBattlesFromLines(lines);
+  // In text-only mode we can't rebuild columns; we approximate by splitting words sequences.
   for (const b of blocks) {
+    // Heuristic: read the first line after title as "species list" split by spaces; stop before 'Nivel:'
     const idx = b.lines.findIndex(l => /\bNivel\b/i.test(l.text));
     const head = b.lines.slice(0, idx >= 0 ? idx : Math.min(4, b.lines.length)).map(l => l.text).join(" ");
     const allTokens = head.split(/\s{2,}|\s(?=[A-ZÁÉÍÓÚÜÑ]{2,}\b)/).map(CLEAN).filter(Boolean);
@@ -152,6 +172,7 @@ export function parseText(txt: string): ParseResult {
       if (looksLikeSpeciesCell(t) && !TYPE_WORDS.has(t)) speciesTokens.push(t);
     }
     const mons: TrainerMon[] = speciesTokens.map(t => ({ species: normSpecies(t), moves: [] }));
+    // Moves—best effort: collect next few lines until next title, filter service words
     const tail = b.lines.slice(0, Math.min(12, b.lines.length)).map(l => l.text).join(" ");
     const moveCandidates = tail.split(/\s{1,}/).filter(Boolean);
     const filtered = moveCandidates.filter(m => {
@@ -161,11 +182,12 @@ export function parseText(txt: string): ParseResult {
       if (/^(OBJ|HAB|Nivel)\b/i.test(m)) return false;
       return isUpperish(m);
     }).slice(0, mons.length * 4);
-    for (let i = 0; i < filtered.length; i++) {
+    // Distribute moves in round-robin
+    for (let i=0;i<filtered.length;i++) {
       const mon = mons[i % Math.max(1, mons.length)];
       (mon.moves ||= []).push(filtered[i]);
     }
-    b.lines = [];
+    b.lines = []; // free memory
     (b as any).mons = mons;
   }
 
@@ -178,9 +200,12 @@ export function parseText(txt: string): ParseResult {
   return { trainers, warnings };
 }
 
+// Name mapping helpers (optional): Mega and regional normalized ids
 export function toPokeApiId(species: string): string {
   let s = species.toLowerCase().replace(/\s+/g,"-");
+  // Mega forms
   s = s.replace(/^mega-([a-z0-9\-]+)/, "$1-mega");
-  s = s.replace(/’/g,"'");
+  // Galar/Alola/Hisui forms already use dash
+  s = s.replace(/’/g,"'"); // normalize apostrophes
   return s;
 }

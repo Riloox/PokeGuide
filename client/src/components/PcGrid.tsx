@@ -1,9 +1,19 @@
-import { useEffect } from 'react';
-import { PcMon } from '../models';
-import { getPokemon } from '../lib/pokeapi';
+import { useEffect, Dispatch, SetStateAction } from 'react';
+import { PcMon, TeamMon } from '../models';
+import { getPokemon, getMove } from '../lib/pokeapi';
 import { TypeBadge } from './TypeBadge';
 
-export default function PcGrid({ pc }: { pc: PcMon[] }) {
+export default function PcGrid({
+  pc,
+  team,
+  setTeam,
+  setPc,
+}: {
+  pc: PcMon[];
+  team: TeamMon[];
+  setTeam: Dispatch<SetStateAction<TeamMon[]>>;
+  setPc: Dispatch<SetStateAction<PcMon[]>>;
+}) {
   useEffect(() => {
     pc.forEach(async (m) => {
       if (!m.sprite || !m.types.length) {
@@ -13,6 +23,17 @@ export default function PcGrid({ pc }: { pc: PcMon[] }) {
           m.types = data.types;
         } catch {
           // ignore
+        }
+      }
+      if (!m.moveNames || m.moveNames.length === 0) {
+        m.moveNames = [];
+        for (const id of m.moves) {
+          try {
+            const mv = await getMove(id);
+            m.moveNames.push(mv.name);
+          } catch {
+            m.moveNames.push(String(id));
+          }
         }
       }
     });
@@ -35,11 +56,29 @@ export default function PcGrid({ pc }: { pc: PcMon[] }) {
               />
             )}
             <div>{m.nick || m.species}</div>
+            {m.level && <div>Nv: {m.level}</div>}
+            {m.item && <div>Obj: {m.item}</div>}
             <div className="flex justify-center gap-1 mt-1">
               {m.types.map((t) => (
                 <TypeBadge key={t} type={t} />
               ))}
             </div>
+            <ul>
+              {m.moveNames?.map((mv, j) => (
+                <li key={j}>{mv}</li>
+              ))}
+            </ul>
+            <button
+              className="mt-1 border border-yellow-500 px-1"
+              onClick={() => {
+                if (team.length >= 6) return;
+                const newPc = pc.filter((_, idx) => idx !== i);
+                setPc(newPc);
+                setTeam([...team, m]);
+              }}
+            >
+              Al equipo
+            </button>
           </div>
         ))}
       </div>

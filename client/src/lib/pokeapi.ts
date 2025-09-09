@@ -58,14 +58,16 @@ export function getMultiplier(moveType: string, targetTypes: string[]): number {
   return mult;
 }
 
-export async function getMove(name: string) {
-  const key = `move_${name}`;
+export async function getMove(id: string | number) {
+  const key = `move_${id}`;
   const cached = cacheGet(key);
   if (cached) return cached;
-  const res = await fetch(`${base}/move/${name}`);
+  const res = await fetch(`${base}/move/${id}`);
   if (!res.ok) throw new Error('pokeapi');
   const data = await res.json();
-  const out = { type: data.type.name };
+  const nameEs =
+    data.names.find((n: any) => n.language.name === 'es')?.name || data.name;
+  const out = { type: data.type.name, name: nameEs };
   cacheSet(key, out);
   return out;
 }

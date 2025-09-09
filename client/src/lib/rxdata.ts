@@ -1,4 +1,4 @@
-import { PcMon } from '../models';
+import { TeamMon } from '../models';
 
 const textDecoder = new TextDecoder();
 
@@ -161,7 +161,7 @@ const normalize = (s: string | number) =>
         .replace(/[^a-z0-9-]/g, '-')
         .replace(/-+/g, '-');
 
-function parseRxdata(buf: ArrayBuffer): PcMon[] {
+function parseRxdata(buf: ArrayBuffer): { team: TeamMon[]; pc: TeamMon[] } {
   const bytes = new Uint8Array(buf);
   const offset = { offset: 0 };
   const roots: AnyObj[] = [];
@@ -173,7 +173,7 @@ function parseRxdata(buf: ArrayBuffer): PcMon[] {
     }
   }
 
-  const result: PcMon[] = [];
+  const result: TeamMon[] = [];
   const seen = new Set<any>();
 
   const walk = (node: any) => {
@@ -192,12 +192,25 @@ function parseRxdata(buf: ArrayBuffer): PcMon[] {
       const nick = node['@name'] ?? node.name ?? node.nickname;
       const ability = node['@ability'] ?? node.ability;
       const item = node['@item'] ?? node.item;
+      const level = node['@level'] ?? node.level;
+      const movesRaw = node['@moves'] ?? node.moves;
+      const moves = Array.isArray(movesRaw)
+        ? movesRaw.map((m: any) =>
+            typeof m === 'number'
+              ? m
+              : typeof m === 'string'
+              ? parseInt(m, 10)
+              : m['@id'] ?? m.id ?? 0,
+          )
+        : [];
       result.push({
         nick,
         species: normalize(species),
         types: [],
         ability,
         item,
+        level,
+        moves,
       });
     }
     if (Array.isArray(node)) node.forEach(walk);
@@ -205,7 +218,7 @@ function parseRxdata(buf: ArrayBuffer): PcMon[] {
   };
 
   roots.forEach(walk);
-  return result;
+  return { team: result.slice(0, 6), pc: result.slice(6) };
 }
 
 export { parseRxdata };

@@ -1,9 +1,17 @@
-import { useEffect } from 'react';
-import { TeamMon } from '../models';
-import { getPokemon } from '../lib/pokeapi';
+import { useEffect, Dispatch, SetStateAction } from 'react';
+import { TeamMon, PcMon } from '../models';
+import { getPokemon, getMove } from '../lib/pokeapi';
 import { TypeBadge } from './TypeBadge';
 
-export default function TeamView({ team }: { team: TeamMon[] }) {
+export default function TeamView({
+  team,
+  setTeam,
+  setPc,
+}: {
+  team: TeamMon[];
+  setTeam: Dispatch<SetStateAction<TeamMon[]>>;
+  setPc: Dispatch<SetStateAction<PcMon[]>>;
+}) {
   useEffect(() => {
     team.forEach(async (m) => {
       if (!m.sprite || !m.types.length) {
@@ -15,12 +23,23 @@ export default function TeamView({ team }: { team: TeamMon[] }) {
           // ignore
         }
       }
+      if (!m.moveNames || m.moveNames.length === 0) {
+        m.moveNames = [];
+        for (const id of m.moves) {
+          try {
+            const mv = await getMove(id);
+            m.moveNames.push(mv.name);
+          } catch {
+            m.moveNames.push(String(id));
+          }
+        }
+      }
     });
   }, [team]);
 
   return (
     <div className="p-4">
-      <h2 className="text-xl mb-2 text-yellow-100">Team</h2>
+      <h2 className="text-xl mb-2 text-yellow-100">Equipo</h2>
       <div className="grid grid-cols-3 gap-2">
         {team.map((m, i) => (
           <div
@@ -40,15 +59,26 @@ export default function TeamView({ team }: { team: TeamMon[] }) {
                 <TypeBadge key={t} type={t} />
               ))}
             </div>
+            {m.level && <div className="text-xs">Nv: {m.level}</div>}
             {m.ability && (
-              <div className="text-xs mt-1">Ability: {m.ability}</div>
+              <div className="text-xs">Habilidad: {m.ability}</div>
             )}
-            {m.item && <div className="text-xs">Item: {m.item}</div>}
+            {m.item && <div className="text-xs">Objeto: {m.item}</div>}
             <ul className="text-xs list-disc ml-4 text-left">
-              {m.moves.map((mv, j) => (
+              {m.moveNames?.map((mv, j) => (
                 <li key={j}>{mv}</li>
               ))}
             </ul>
+            <button
+              className="mt-1 text-xs border border-yellow-500 px-1"
+              onClick={() => {
+                const newTeam = team.filter((_, idx) => idx !== i);
+                setTeam(newTeam);
+                setPc((pc) => [...pc, m]);
+              }}
+            >
+              Al PC
+            </button>
           </div>
         ))}
       </div>
