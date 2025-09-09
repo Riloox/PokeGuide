@@ -91,12 +91,18 @@ async function readPdfTextItems(data: ArrayBuffer | Uint8Array) {
   let pdfjs: any;
   try {
     // Works if consumer installed `pdfjs-dist`
-    pdfjs = await import(/* @vite-ignore */ "pdfjs-dist/build/pdf");
-    // Worker is optional if bundler inlines it; suppress if not found
+    pdfjs = await import(/* @vite-ignore */ "pdfjs-dist/build/pdf.mjs");
+    // Worker is optional if bundler inlines it; pdfjs-dist 5+ ships an ESM worker file
     try {
-      const workerSrc = (await import(/* @vite-ignore */ "pdfjs-dist/build/pdf.worker.js?url")).default;
+      const workerSrc = (
+        await import(
+          /* @vite-ignore */ "pdfjs-dist/build/pdf.worker.mjs?url"
+        )
+      ).default;
       if (pdfjs.GlobalWorkerOptions) pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore if worker not found */
+    }
   } catch (e) {
     throw new Error("pdfjs-dist not found. Install it or use parseText() fallback.");
   }
@@ -330,6 +336,14 @@ export async function parsePdf(data: ArrayBuffer | Uint8Array): Promise<ParseRes
   const res = assembleResult(blocks);
   (res as any).debug = { pages: pages.length, lines: allLines.length, blocks: blocks.length };
   return res;
+}
+
+// Legacy wrapper retained for existing imports that expect an array.
+export async function parseTrainerPdf(
+  data: ArrayBuffer | Uint8Array,
+): Promise<Trainer[]> {
+  const res = await parsePdf(data);
+  return res.trainers;
 }
 
 // Fallback parser: accepts plain text extracted elsewhere (no geometry), best-effort.
