@@ -38,24 +38,37 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
   const trainers: Trainer[] = [];
   let current: { title: string; roster: string[]; moves: string[][] } | null =
     null;
+
+  // Track the current block of Pokémon to correctly associate move rows.
+  let blockStart = 0;
+  let blockCols = 0;
+  let blockMoves = 0;
   let skip = 0;
   for (const row of rows) {
     const first = row[0] ?? '';
     if (/^(Rival|L[ií]der|Alto|Campe[oó]n)/i.test(first)) {
       if (current) trainers.push({ ...current });
       current = { title: first, roster: [], moves: [] };
+
+      blockStart = 0;
+      blockCols = 0;
+      blockMoves = 0;
       skip = 0;
       continue;
     }
     if (!current) continue;
-    if (
-      !current.roster.length &&
-      row.length > 1 &&
-      row.every((c) => /^[A-ZÁÉÍÓÚÜÑ0-9\s-]+$/.test(c))
-    ) {
-      current.roster = row.map(normalize);
-      current.moves = current.roster.map(() => []);
-      skip = 2;
+
+    const isRoster =
+      row.length > 0 && row.every((c) => /^[A-ZÁÉÍÓÚÜÑ0-9\s-]+$/.test(c));
+    if (isRoster) {
+      // Start a new roster block (handles multiple possible parties).
+      blockStart = current.roster.length;
+      blockCols = row.length;
+      blockMoves = 0;
+      current.roster.push(...row.map(normalize));
+      for (let i = 0; i < row.length; i++) current.moves.push([]);
+      // Skip the immediate type row that follows the roster names.
+      skip = 1;
       continue;
     }
     if (skip > 0) {
@@ -64,9 +77,14 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
     }
     if (row.some((c) => c.includes(':'))) continue;
     if (!row.some((c) => c.trim())) continue;
-    for (let i = 0; i < current.roster.length; i++) {
+    if (blockCols === 0) continue;
+    for (let i = 0; i < blockCols; i++) {
       const mv = row[i];
-      if (mv && mv !== '---') current.moves[i].push(normalize(mv));
+      if (mv && mv !== '---') current.moves[blockStart + i].push(mv);
+    }
+    blockMoves++;
+    if (blockMoves >= 4) {
+      blockCols = 0;
     }
   }
   if (current) trainers.push(current);

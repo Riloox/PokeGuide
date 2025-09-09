@@ -3,6 +3,13 @@ import { Trainer, TeamMon, PcMon } from '../models';
 import { getPokemon, getMove, getMultiplier } from '../lib/pokeapi';
 import { TypeBadge } from './TypeBadge';
 
+const normalize = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[^a-z0-9-]/g, '-')
+    .replace(/-+/g, '-');
+
 interface Props {
   trainers: Trainer[];
   team: TeamMon[];
@@ -21,7 +28,7 @@ export default function Guide({ trainers, team, pc }: Props) {
         for (const moves of tr.moves) {
           for (const mv of moves) {
             try {
-              const { type } = await getMove(mv);
+              const { type } = await getMove(normalize(mv));
               team.forEach((mon) => {
                 const mult = getMultiplier(type, mon.types);
                 if (mult >= 2) set.add(type);
@@ -169,7 +176,7 @@ function TrainerRow({
 function MoveCell({ move }: { move: string }) {
   const [type, setType] = useState('');
   useEffect(() => {
-    getMove(move)
+    getMove(normalize(move))
       .then((m) => setType(m.type))
       .catch(() => setType('?'));
   }, [move]);
@@ -183,7 +190,7 @@ function MoveCell({ move }: { move: string }) {
 function ThreatCell({ move, team }: { move: string; team: TeamMon[] }) {
   const [type, setType] = useState('');
   useEffect(() => {
-    getMove(move)
+    getMove(normalize(move))
       .then((m) => setType(m.type))
       .catch(() => setType(''));
   }, [move]);
