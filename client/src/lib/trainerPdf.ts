@@ -3,6 +3,7 @@ import type { Trainer } from '../models';
 import * as pdfjsLib from 'pdfjs-dist';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
+
 (pdfjsLib as any).GlobalWorkerOptions.workerSrc = workerSrc;
 
 const normalize = (s: string) =>
@@ -37,6 +38,7 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
   const trainers: Trainer[] = [];
   let current: { title: string; roster: string[]; moves: string[][] } | null =
     null;
+
   // Track the current block of Pokémon to correctly associate move rows.
   let blockStart = 0;
   let blockCols = 0;
@@ -47,6 +49,7 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
     if (/^(Rival|L[ií]der|Alto|Campe[oó]n)/i.test(first)) {
       if (current) trainers.push({ ...current });
       current = { title: first, roster: [], moves: [] };
+
       blockStart = 0;
       blockCols = 0;
       blockMoves = 0;
@@ -68,7 +71,6 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
       skip = 1;
       continue;
     }
-
     if (skip > 0) {
       skip--;
       continue;
@@ -76,7 +78,6 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
     if (row.some((c) => c.includes(':'))) continue;
     if (!row.some((c) => c.trim())) continue;
     if (blockCols === 0) continue;
-
     for (let i = 0; i < blockCols; i++) {
       const mv = row[i];
       if (mv && mv !== '---') current.moves[blockStart + i].push(mv);
