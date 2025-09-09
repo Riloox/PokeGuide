@@ -30,8 +30,10 @@ function readInt(buf: Uint8Array, offsetObj: { offset: number }): number {
   return 0;
 }
 
-export function decodeMarshal(buf: Uint8Array): AnyObj {
-  const offsetObj = { offset: 0 };
+export function decodeMarshal(
+  buf: Uint8Array,
+  offsetObj: { offset: number } = { offset: 0 },
+): AnyObj {
   const objects: any[] = [];
   const symbols: string[] = [];
 
@@ -130,6 +132,15 @@ export function decodeMarshal(buf: Uint8Array): AnyObj {
         }
         return inner;
       }
+      case 'u': {
+        const klass = read();
+        const len = readInt(buf, offsetObj);
+        const raw = buf.slice(offsetObj.offset, offsetObj.offset + len);
+        offsetObj.offset += len;
+        const obj: any = { __class__: klass, __raw__: raw };
+        objects.push(obj);
+        return obj;
+      }
       default:
         throw new Error('Unknown tag ' + tag);
     }
@@ -151,7 +162,17 @@ const normalize = (s: string | number) =>
         .replace(/-+/g, '-');
 
 function parseRxdata(buf: ArrayBuffer): PcMon[] {
-  const root = decodeMarshal(new Uint8Array(buf));
+  const bytes = new Uint8Array(buf);
+  const offset = { offset: 0 };
+  const roots: AnyObj[] = [];
+  while (offset.offset < bytes.length) {
+    try {
+      roots.push(decodeMarshal(bytes, offset));
+    } catch {
+      break;
+    }
+  }
+
   const result: PcMon[] = [];
   const seen = new Set<any>();
 
@@ -175,7 +196,7 @@ function parseRxdata(buf: ArrayBuffer): PcMon[] {
     else for (const key in node) walk(node[key]);
   };
 
-  walk(root);
+  roots.forEach(walk);
   return result;
 }
 
