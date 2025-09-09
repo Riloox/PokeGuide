@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { parseRxdata } from '../lib/rxdata';
+import defaultTrainers from '../data/trainers.json';
 import { TeamMon, PcMon, Trainer } from '../models';
 
 interface Props {
@@ -18,6 +19,7 @@ export default function ImportPanel({
   addLog,
 }: Props) {
   const rxdataRef = useRef<HTMLInputElement>(null);
+  const trainersRef = useRef<HTMLTextAreaElement>(null);
 
   const handleRxdata = async () => {
     const file = rxdataRef.current?.files?.[0];
@@ -33,16 +35,20 @@ export default function ImportPanel({
     }
   };
 
-  const handleDefaultTrainers = async () => {
+  const handleTrainers = () => {
+    const text = trainersRef.current?.value || '';
     try {
-      const res = await fetch('/trainers.json');
-      if (!res.ok) throw new Error('fetch');
-      const arr: Trainer[] = await res.json();
+      const arr = JSON.parse(text);
       setTrainers(arr);
-      addLog(`Se cargaron ${arr.length} entrenadores del juego.`);
+      addLog(`Se cargaron ${arr.length} entrenadores.`);
     } catch {
-      addLog('Error al cargar entrenadores');
+      addLog('Error en Trainers JSON');
     }
+  };
+
+  const handleDefaultTrainers = () => {
+    setTrainers(defaultTrainers);
+    addLog(`Se cargaron ${defaultTrainers.length} entrenadores del juego.`);
   };
 
   return (
@@ -59,6 +65,16 @@ export default function ImportPanel({
       </div>
       <div>
         <button onClick={handleDefaultTrainers}>Cargar entrenadores del juego</button>
+      </div>
+      <div>
+        <textarea
+          ref={trainersRef}
+          className="w-full h-24 text-black"
+          placeholder="Entrenadores JSON"
+        />
+        <button className="mt-1" onClick={handleTrainers}>
+          Cargar entrenadores
+        </button>
       </div>
       <textarea
         className="w-full h-24 text-black"

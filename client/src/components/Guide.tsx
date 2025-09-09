@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Trainer, TeamMon, PcMon } from '../models';
-import { getPokemon, getMultiplier } from '../lib/pokeapi';
-import { getMove } from '../lib/data';
+import { getPokemon, getMove, getMultiplier } from '../lib/pokeapi';
 import { TypeBadge, typeNames } from './TypeBadge';
 
 interface Props {
@@ -22,13 +21,11 @@ export default function Guide({ trainers, team, pc }: Props) {
         for (const moves of tr.moves) {
           for (const mv of moves) {
             try {
-              const data = await getMove(mv);
-              if (data) {
-                team.forEach((mon) => {
-                  const mult = getMultiplier(data.type, mon.types);
-                  if (mult >= 2) set.add(data.type);
-                });
-              }
+              const { type } = await getMove(mv);
+              team.forEach((mon) => {
+                const mult = getMultiplier(type, mon.types);
+                if (mult >= 2) set.add(type);
+              });
             } catch {
               // ignore
             }
@@ -173,7 +170,7 @@ function MoveCell({ move }: { move: number }) {
   const [data, setData] = useState<{ type: string; name: string } | null>(null);
   useEffect(() => {
     getMove(move)
-      .then((m) => setData(m || null))
+      .then((m) => setData(m))
       .catch(() => setData(null));
   }, [move]);
   return (
@@ -193,7 +190,7 @@ function ThreatCell({ move, team }: { move: number; team: TeamMon[] }) {
   const [type, setType] = useState('');
   useEffect(() => {
     getMove(move)
-      .then((m) => setType(m?.type || ''))
+      .then((m) => setType(m.type))
       .catch(() => setType(''));
   }, [move]);
   const threats = team.filter(

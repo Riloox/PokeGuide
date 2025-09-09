@@ -1,7 +1,6 @@
 import { useEffect, Dispatch, SetStateAction } from 'react';
 import { TeamMon, PcMon } from '../models';
-import { getPokemon } from '../lib/pokeapi';
-import { getMove, getItem, getAbility } from '../lib/data';
+import { getPokemon, getMove } from '../lib/pokeapi';
 import { TypeBadge } from './TypeBadge';
 
 export default function TeamView({
@@ -24,24 +23,12 @@ export default function TeamView({
           // ignore
         }
       }
-      if (m.ability && typeof m.ability === 'number') {
-        try {
-          const ab = await getAbility(m.ability);
-          if (ab) m.ability = ab;
-        } catch {}
-      }
-      if (m.item && typeof m.item === 'number') {
-        try {
-          const it = await getItem(m.item);
-          if (it) m.item = it;
-        } catch {}
-      }
       if (!m.moveNames || m.moveNames.length === 0) {
         m.moveNames = [];
         for (const id of m.moves) {
           try {
             const mv = await getMove(id);
-            m.moveNames.push(mv?.name || String(id));
+            m.moveNames.push(mv.name);
           } catch {
             m.moveNames.push(String(id));
           }
