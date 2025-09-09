@@ -1,6 +1,7 @@
 import type { Trainer } from '../models';
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
-import workerSrc from 'pdfjs-dist/legacy/build/pdf.worker.min.js?url';
+// Use the modern ESM build of pdf.js and explicitly point to the worker.
+import * as pdfjsLib from 'pdfjs-dist';
+import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 
 (pdfjsLib as any).GlobalWorkerOptions.workerSrc = workerSrc;
