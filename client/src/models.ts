@@ -5,8 +5,8 @@ export type TeamMon = {
   moves: number[];
   moveNames?: string[];
   types: string[];
-  ability?: string;
-  item?: string;
+  ability?: string | number;
+  item?: string | number;
   sprite?: string;
 };
 
