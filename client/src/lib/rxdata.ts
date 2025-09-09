@@ -153,11 +153,10 @@ const normalize = (s: string | number) =>
 function parseRxdata(buf: ArrayBuffer): PcMon[] {
   const root = decodeMarshal(new Uint8Array(buf));
   const result: PcMon[] = [];
-  const queue: any[] = [root];
   const seen = new Set<any>();
-  while (queue.length) {
-    const node = queue.shift();
-    if (!node || typeof node !== 'object' || seen.has(node)) continue;
+
+  const walk = (node: any) => {
+    if (!node || typeof node !== 'object' || seen.has(node)) return;
     seen.add(node);
     const species = node['@species'] ?? node.species ?? node.Species;
     if (species !== undefined) {
@@ -172,13 +171,11 @@ function parseRxdata(buf: ArrayBuffer): PcMon[] {
         item,
       });
     }
-    for (const key in node) {
-      queue.push(node[key]);
-    }
-    if (Array.isArray(node)) {
-      for (const val of node) queue.push(val);
-    }
-  }
+    if (Array.isArray(node)) node.forEach(walk);
+    else for (const key in node) walk(node[key]);
+  };
+
+  walk(root);
   return result;
 }
 

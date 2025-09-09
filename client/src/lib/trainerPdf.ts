@@ -18,10 +18,10 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const content = await page.getTextContent();
-    raw +=
-      content.items
-        .map((it: any) => ('str' in it ? it.str : ''))
-        .join(' ') + '\n';
+    for (const it of content.items as any[]) {
+      if ('str' in it) raw += it.str;
+      raw += it.hasEOL ? '\n' : ' ';
+    }
   }
   const lines = raw
     .split(/\n+/)
