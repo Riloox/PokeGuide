@@ -15,7 +15,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <header className="p-4 text-center text-2xl">Nuzlocke Generalizer v1.0</header>
+      <header className="p-4 text-center text-2xl bg-red-900 text-yellow-100 border-b-4 border-yellow-500">
+        Nuzlocke Generalizer v1.0
+      </header>
       <ImportPanel
         setTeam={setTeam}
         setPc={setPc}

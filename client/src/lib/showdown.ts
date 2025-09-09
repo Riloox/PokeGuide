@@ -8,10 +8,7 @@ const normalize = (s: string) =>
     .replace(/-+/g, '-');
 
 export function parseShowdown(text: string): TeamMon[] {
-  const blocks = text
-    .replace(/\r/g, '')
-    .trim()
-    .split(/\n\n+/);
+  const blocks = text.replace(/\r/g, '').trim().split(/\n\n+/);
 
   const team: TeamMon[] = [];
   for (const block of blocks) {
@@ -26,7 +23,9 @@ export function parseShowdown(text: string): TeamMon[] {
 
     const first = lines[0];
     const mon: TeamMon = { species: '', moves: [], types: [] };
-    const m = first.match(/^(.*?)(?: \(([^\)]+)\))?(?: @ (.*))?$/);
+    const m = first.match(
+      /^(.*?)(?: \(([^\)]+)\))?(?: \((?:M|F)\))?(?: @ (.*))?$/,
+    );
 
     if (m) {
       if (m[2]) {
