@@ -79,4 +79,3 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
     return parseTrainerText(decodeText(data));
   }
 }
-
