@@ -1,64 +1,66 @@
-// trainerPdf.ts — Parser for 'GUIA MODO COMPLETO' (Pokémon Añil) trainer guide
-// Works in browser (pdfjs-dist) or Node (with a bundler).
-// Exports:
-//   - parsePdf(data)  → uses pdfjs-dist (if present) to read text items with positions, then parses into Trainer[]
-//   - parseText(text) → fallback: parse from plain text (less accurate; no column geometry)
-//   - Types: Trainer, TrainerMon, ParseResult
+import { Trainer } from '../models';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+const decoder = new TextDecoder();
 
-export type TrainerMon = {
-  species: string;           // As printed in the PDF (normalized case)
-  level?: number;
-  item?: string;
-  ability?: string;
-  moves?: string[];
-};
+const normalize = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[^a-z0-9-]/g, '-')
+    .replace(/-+/g, '-');
 
-export type Trainer = {
-  title: string;             // e.g. "GIMNASIO 05 - CIUDAD FUCSIA (TIPO VENENO & SINIESTRO)"
-  double?: boolean;          // true if "(Combate Doble)" or similar tag is near title
-  mons: TrainerMon[];
-};
+export function parseTrainerText(text: string): Trainer[] {
+  const trainers: Trainer[] = [];
+  const blocks = text
+    .split(/\n{2,}/)
+    .map((b) => b.trim())
+    .filter(Boolean);
+  for (const block of blocks) {
+    const lines = block.split(/\n/).map((l) => l.trim()).filter(Boolean);
+    if (lines.length === 0) continue;
+    const title = lines[0];
+    const roster: (string | number)[] = [];
+    const moves: string[][] = [];
+    for (const line of lines.slice(1)) {
+      const [specPart, movePart] = line.split(/[-:]/, 2);
+      if (!specPart) continue;
+      roster.push(normalize(specPart.trim()));
+      const mvArr = movePart
+        ? movePart
+            .split(/[,;/]/)
+            .map((m) => m.trim())
+            .filter(Boolean)
+        : [];
+      moves.push(mvArr);
+    }
+    if (roster.length) {
+      trainers.push({
+        title,
+        double: /\b(doble|double)\b/i.test(title),
+        roster,
+        moves,
+      });
+    }
+  }
+  return trainers;
+}
 
-export type ParseResult = {
-  trainers: Trainer[];
-  warnings: string[];
-  debug?: any;
-};
+export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
+  try {
+    const pdfjs = await import('pdfjs-dist');
+    const pdf = await pdfjs.getDocument({ data }).promise;
+    let text = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const pageText = content.items
+        .map((it: any) => ('str' in it ? it.str : ''))
+        .join('\n');
+      text += pageText + '\n';
+    }
+    return parseTrainerText(text);
+  } catch {
+    return parseTrainerText(decoder.decode(new Uint8Array(data)));
+  }
+}
 
-// -------------------------- Utilities --------------------------
-
-const TYPE_WORDS = new Set([
-  "ACERO","AGUA","BICHO","DRAGÓN","DRAGON","ELÉCTRICO","ELECTRICO","FANTASMA","FUEGO","HADA",
-  "HIELO","LUCHA","NORMAL","PLANTA","PSÍQUICO","PSIQUICO","ROCA","SINIESTRO","TIERRA","VENENO","VOLADOR"
-]);
-
-const POTION_WORDS = new Set([
-  "POCIÓN","PÓCION","SUPERPOCIÓN","HIPERPOCIÓN","MÁX. POCIÓN","RESTAU. TODO","RESTAURAR TODO",
-  "MAXIMAPOCIÓN","MAXIMAPOCION","MAXIMAPOCIÓN"
-]);
-
-const SERVICE_LINES = [
-  /^OBJ\b/i, /^HAB\b/i, /^Nivel\b/i, /^Niveles\b/i, /^Obj\b/i, /^Hab\b/i
-];
-
-const TITLE_MARKERS = [
-  /^GIMNASIO\b/i, /^ALTO MANDO\b/i, /^CAMPE(Ó|O)N\b/i,
-  /^Rival\b/i, /^Jefe\b/i, /^Comandante\b/i, /^L[ií]der(es)?\b/i,
-  /^Maestro\b/i, /^Profesor\b/i, /^Inform[aá]tico\b/i, /^Post-?Game\b/i, /^POST-?GAME\b/i
-];
-
-const DOUBLE_MARKERS = [
-  /\b(Doble|Combate Doble)\b/i
-];
-
-const CLEAN = (s: string) =>
-  s.replace(/\u00A0/g, " ")
-   .replace(/[“”]/g, '"')
-   .replace(/[‘’]/g, "'")
-   .replace(/\s+/g, " ")
-   .trim();
-
-const isUpperish = (s: string) => {
-  const t = s.replace(/[^A-ZÁÉ]()
