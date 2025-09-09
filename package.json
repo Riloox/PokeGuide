@@ -1,7 +1,10 @@
 {
   "name": "nuzlocke-generalizer",
   "private": true,
-  "workspaces": ["server", "client"],
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "scripts": {
     "dev": "concurrently -k \"npm run --workspace server dev\" \"npm run --workspace client dev\"",
     "build": "npm run --workspace client build && cp -r client/dist server/public && npm run --workspace server build",

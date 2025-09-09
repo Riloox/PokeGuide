@@ -11,6 +11,7 @@ interface Props {
 
 export default function Guide({ trainers, team, pc }: Props) {
   const [open, setOpen] = useState<number | null>(null);
+
   const [threatTypes, setThreatTypes] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -55,10 +56,16 @@ export default function Guide({ trainers, team, pc }: Props) {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl mb-2">Guide</h2>
+      <h2 className="text-xl mb-2 text-yellow-100">Guide</h2>
       {trainers.map((tr, idx) => (
-        <div key={idx} className="mb-4 border-2 border-white p-2 bg-gray-800">
-          <div className="flex justify-between" onClick={() => setOpen(open === idx ? null : idx)}>
+        <div
+          key={idx}
+          className="mb-4 border-2 border-yellow-500 p-2 bg-red-900"
+        >
+          <div
+            className="flex justify-between"
+            onClick={() => setOpen(open === idx ? null : idx)}
+          >
             <div>
               {tr.title} {tr.double && <span className="text-xs">Double</span>}
             </div>
@@ -76,7 +83,12 @@ export default function Guide({ trainers, team, pc }: Props) {
               </thead>
               <tbody>
                 {tr.roster.map((sp, i) => (
-                  <TrainerRow key={i} species={sp} moves={tr.moves[i]} team={team} />
+                  <TrainerRow
+                    key={i}
+                    species={sp}
+                    moves={tr.moves[i]}
+                    team={team}
+                  />
                 ))}
               </tbody>
             </table>
@@ -99,9 +111,84 @@ export default function Guide({ trainers, team, pc }: Props) {
   );
 }
 
-function TrainerRow({ species, moves, team }: { species: string | number; moves: string[]; team: TeamMon[] }) {
+function TrainerRow({
+  species,
+  moves,
+  team,
+}: {
+  species: string | number;
+  moves: string[];
+  team: TeamMon[];
+}) {
   const [types, setTypes] = useState<string[]>([]);
   const [sprite, setSprite] = useState<string>('');
 
   useEffect(() => {
-    getPokemon(String(species)).then((d) =
+    getPokemon(String(species)).then((d) => {
+      setTypes(d.types);
+      setSprite(d.sprite);
+    });
+  }, [species]);
+
+  return (
+    <tr className="text-center border-t">
+      <td>
+        {sprite && (
+          <img
+            src={sprite}
+            alt={String(species)}
+            className="w-12 h-12 mx-auto"
+          />
+        )}
+      </td>
+      <td>
+        <div className="flex justify-center gap-1">
+          {types.map((t) => (
+            <TypeBadge key={t} type={t} />
+          ))}
+        </div>
+      </td>
+      <td>
+        <ul>
+          {moves.map((mv, idx) => (
+            <MoveCell key={idx} move={mv} />
+          ))}
+        </ul>
+      </td>
+      <td>
+        <ul>
+          {moves.map((mv, idx) => (
+            <ThreatCell key={idx} move={mv} team={team} />
+          ))}
+        </ul>
+      </td>
+    </tr>
+  );
+}
+
+function MoveCell({ move }: { move: string }) {
+  const [type, setType] = useState('');
+  useEffect(() => {
+    getMove(move)
+      .then((m) => setType(m.type))
+      .catch(() => setType('?'));
+  }, [move]);
+  return (
+    <li>
+      {move} {type && <TypeBadge type={type} />}
+    </li>
+  );
+}
+
+function ThreatCell({ move, team }: { move: string; team: TeamMon[] }) {
+  const [type, setType] = useState('');
+  useEffect(() => {
+    getMove(move)
+      .then((m) => setType(m.type))
+      .catch(() => setType(''));
+  }, [move]);
+  const threats = team.filter(
+    (mon) => type && getMultiplier(type, mon.types) >= 2,
+  );
+  return <li>{threats.map((t) => t.nick || t.species).join(', ')}</li>;
+}
