@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuzlocke Generalizer — v6 (Guía auto‑generada desde PDF)</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#06122c;--bg2:#0e214f;--card:#0f1f4a;--card2:#162b63;--accent:#ffcb05;--accent2:#3b4cca;--text:#f7f7ff;--muted:#c9d0ff;--green:#28d07d;--red:#ff6b6b}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);font-family:Nunito}
+header{padding:18px 16px;text-align:center;border-bottom:4px solid var(--accent2)}
+h1{margin:0;font-family:"Press Start 2P";color:var(--accent);text-shadow:0 2px 0 #5d3a00}
+.container{max-width:1300px;margin:18px auto;padding:0 16px}
+.section{margin:12px 0;padding:12px;background:linear-gradient(180deg,var(--card),var(--card2));border:4px solid #0b1631;border-radius:18px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.card{padding:12px;border-radius:14px;border:3px solid #0a132d;background:linear-gradient(180deg,#0e1f45,#152b59)}
+.badge{display:inline-block;padding:6px 10px;border-radius:10px;border:2px solid #07163a;background:#0c1d49;margin-right:8px}
+.small{font-size:14px;color:#b9c7ff}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:3px solid #5d3a00;background:linear-gradient(180deg,#ffdb4d,#ffb300);color:#061332;font-weight:900;text-decoration:none;cursor:pointer}
+.btn.secondary{border-color:#00335d;background:linear-gradient(180deg,#9cd7ff,#37a4ff);color:#02182e}
+input[type="file"],textarea{width:100%;padding:8px;border-radius:10px;border:2px solid #0c1d44;background:#0a1637;color:#fff}
+#log{max-height:260px;overflow:auto;background:#08143b;border:2px solid #0e2a7a;border-radius:10px;padding:8px;white-space:pre-wrap}
+.poke{display:flex;gap:12px;align-items:flex-start}
+img.sprite{height:88px;image-rendering:pixelated;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6))}
+.pill{display:inline-block;padding:3px 8px;border-radius:999px;background:#0a193b;border:2px solid #1c3174;margin-right:6px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+h3{margin:8px 0}
+.collapsible{cursor:pointer}
+.hidden{display:none}
+hr{border:0;border-top:2px solid #0c1d44;margin:10px 0}
+.table{width:100%;border-collapse:collapse;margin:6px 0}
+.table th,.table td{border:1px solid #0c1d44;padding:6px}
+.kpill{display:inline-block;padding:3px 8px;border-radius:999px;font-weight:700}
+.kpill.se{background:#132e13;border:2px solid #22a322;color:#dcf5dc}
+.kpill.ne{background:#2a152c;border:2px solid #a3228f;color:#ffd6f8}
+.kpill.im{background:#311313;border:2px solid #b13232;color:#ffd8d8}
+.note{background:#0a1637;border:2px dashed #28408f;border-radius:10px;padding:8px;margin-top:6px}
+footer{padding:24px;text-align:center;color:#9fb3ff}
+</style>
+</head>
+<body>
+<header>
+  <h1>Nuzlocke Generalizer — v6</h1>
+  <div class="small">Carga tu <b>.rxdata</b> y el <b>PDF</b> de combates. Genero una guía editable por pelea (incluye post‑game). Todo ocurre en tu navegador.</div>
+</header>
+
+<div class="container">
+
+  <div class="section">
+    <h2>1) Importar datos</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="badge">Equipo (.rxdata)</div>
+        <input type="file" id="rx" accept=".rxdata,.dat,.bin">
+        <div class="row" style="margin-top:6px">
+          <button class="btn" id="loadRx">Cargar .rxdata</button>
+          <button class="btn secondary" id="testPokeAPI">Probar PokeAPI</button>
+        </div>
+        <div class="small">Tip: si un movimiento aparece con número, podrás renombrarlo abajo (y persistirá).</div>
+      </div>
+      <div class="card">
+        <div class="badge">Combates (PDF o JSON)</div>
+        <input type="file" id="pdf" accept="application/pdf,.pdf">
+        <div class="row" style="margin-top:6px">
+          <button class="btn" id="loadPdf">Leer PDF y construir dataset</button>
+          <button class="btn secondary" id="genGuide">Generar guía con dataset actual</button>
+        </div>
+        <hr>
+        <div class="small">O pega/edita JSON de combates aquí (se guarda en LocalStorage):</div>
+        <textarea id="json" rows="8" placeholder='[{"id":"koga","title":"Gimnasio 05 — Koga & Sachiko (Doble)","double":true,"roster":["dragalge","drapion","crobat","beedrill"]}]'></textarea>
+        <div class="row" style="margin-top:6px">
+          <button class="btn" id="saveJson">Guardar JSON</button>
+          <button class="btn secondary" id="downloadJson">Descargar JSON</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="badge">LOG</div>
+        <div id="log">Listo. Carga tu archivo para empezar…</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2) Equipo</h2>
+    <div id="team"></div>
+  </div>
+
+  <div class="section">
+    <h2>3) Guía generada (editable)</h2>
+    <div id="guide"></div>
+  </div>
+
+</div>
+
+<footer class="small">Hecho con ❤️ — v6. Los datos de especies/movimientos provienen de PokeAPI. Puedes exportar tu JSON y volver a cargarlo cuando quieras.</footer>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js" integrity="sha512-8wUnbCqK9w7+zPpG4j1ykyG6juez4o9j3aH0vKq3cjR3Cz63rF5nTtA9wJm77XuDCoYkwR9UQfgFGc7NxQv3Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+const q=s=>document.querySelector(s);
+const log=(m)=>{ const d=q('#log'); d.textContent += (d.textContent? '\\n' : '') + m };
+['log','warn','error'].forEach(fn=>{ const old=console[fn].bind(console); console[fn]=(...a)=>{ old(...a); log('[console.'+fn+'] '+a.join(' ')); }; });
+window.addEventListener('error', e=> log('[window.error] '+e.message+' @'+e.filename+':'+e.lineno));
+window.addEventListener('unhandledrejection', e=> log('[unhandledrejection] '+(e.reason && e.reason.message ? e.reason.message : e.reason)));
+
+const el=(t,a={},k=[])=>{const e=document.createElement(t); for(const [k2,v] of Object.entries(a)){ if(k2==='class')e.className=v; else if(k2==='html')e.innerHTML=v; else e.setAttribute(k2,v) } k.forEach(c=>e.appendChild(c)); return e };
+const title=s=> (s||'').toString().split(/[\s\-_]/).map(x=> x?x[0].toUpperCase()+x.slice(1):'').join(' ');
+const TYPES = new Set(["normal","fire","water","electric","grass","ice","fighting","poison","ground","flying","psychic","bug","rock","ghost","dragon","dark","steel","fairy"]);
+
+// Persistent, editable overrides
+const LS_MOV="nuz_v6_moves"; const LS_SPEC="nuz_v6_species"; const LS_JSON="nuz_v6_trainers";
+const MOVE_OVR = {}; const SPECIES_OVR = {"1001":"sinistcha"};
+try{ Object.assign(MOVE_OVR, JSON.parse(localStorage.getItem(LS_MOV)||'{}')); }catch(_){}
+try{ Object.assign(SPECIES_OVR, JSON.parse(localStorage.getItem(LS_SPEC)||'{}')); }catch(_){}
+const saveOvr=()=>{ localStorage.setItem(LS_MOV, JSON.stringify(MOVE_OVR)); localStorage.setItem(LS_SPEC, JSON.stringify(SPECIES_OVR)); };
+const saveTrain=()=>{ localStorage.setItem(LS_JSON, q('#json').value||'[]'); };
+
+// Caches
+const POKE_CACHE = new Map(); const SPECIES_CACHE = new Map(); const MOVE_CACHE = new Map(); const TYPE_CACHE = new Map(); const SPRITE_CACHE = new Map();
+async function timedFetch(url, ms=9000){ return await Promise.race([ fetch(url), new Promise((_,rej)=> setTimeout(()=>rej(new Error('timeout')), ms)) ]); }
+async function fetchPokemon(nameOrId){
+  const key=String(nameOrId).toLowerCase();
+  if(POKE_CACHE.has(key)) return POKE_CACHE.get(key);
+  try{
+    const r=await timedFetch(`https://pokeapi.co/api/v2/pokemon/${key}`);
+    if(r.ok){
+      const d=await r.json();
+      const info={ name:d.name,
+        sprite:(d.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default) || d.sprites?.other?.['official-artwork']?.front_default || d.sprites?.front_default || null,
+        types:(d.types||[]).map(t=> t.type.name), stats:d.stats||[], base:{atk:0,def:0,spa:0,spd:0},
+        id:d.id };
+      info.base.atk = d.stats?.find(s=>s.stat?.name==='attack')?.base_stat || 0;
+      info.base.def = d.stats?.find(s=>s.stat?.name==='defense')?.base_stat || 0;
+      info.base.spa = d.stats?.find(s=>s.stat?.name==='special-attack')?.base_stat || 0;
+      info.base.spd = d.stats?.find(s=>s.stat?.name==='special-defense')?.base_stat || 0;
+      POKE_CACHE.set(key,info); return info;
+    }
+  }catch(err){ console.warn('fetchPokemon fail', key, err); }
+  const fb={ name:String(nameOrId), sprite:null, types:[], base:{atk:0,def:0,spa:0,spd:0}, id:null }; POKE_CACHE.set(key,fb); return fb;
+}
+async function fetchType(name){
+  const key=String(name).toLowerCase();
+  if(TYPE_CACHE.has(key)) return TYPE_CACHE.get(key);
+  try{ const r=await timedFetch(`https://pokeapi.co/api/v2/type/${key}`); if(r.ok){ const d=await r.json(); TYPE_CACHE.set(key,d); return d; } }
+  catch(err){ console.warn('fetchType fail', key, err); }
+  return null;
+}
+async function fetchMove(idOrName){
+  const key=String(idOrName).toLowerCase();
+  if(MOVE_CACHE.has(key)) return MOVE_CACHE.get(key);
+  try{
+    const r=await timedFetch(`https://pokeapi.co/api/v2/move/${key}`);
+    if(r.ok){
+      const d=await r.json();
+      MOVE_CACHE.set(key,d);
+      return d;
+    }
+  }catch(err){ console.warn('fetchMove fail', key, err); }
+  MOVE_CACHE.set(key,null); return null;
+}
+
+// Marshal reader (cycle‑safe)
+class R{ constructor(buf){ this.b=new Uint8Array(buf); this.i=0; this.syms=[]; this.objs=[]; this.major=this.u8(); this.minor=this.u8(); }
+  u8(){ return this.b[this.i++] } bytes(n){ const s=this.b.slice(this.i,this.i+n); this.i+=n; return s }
+  fix(){ const c=(this.u8()<<24)>>24; if(c===0) return 0; if(c>0){ if(c>=5) return c-5; let x=0; for(let i=0;i<c;i++) x|=(this.u8()<<(8*i)); return x } else { if(c<=-5) return c+5; let x=0; for(let i=0;i<-c;i++) x|=(this.u8()<<(8*i)); return -x } }
+  str(){ const n=this.fix(); const s=this.bytes(n); return new TextDecoder('utf-8').decode(s) }
+  sym(){ const n=this.fix(); const s=this.bytes(n); const t=new TextDecoder('utf-8').decode(s); this.syms.push(t); return t }
+  symlink(){ const i=this.fix(); return this.syms[i] } link(){ const i=this.fix(); return this.objs[i] }
+  bignum(){ const sign=String.fromCharCode(this.u8()); const len=this.fix(); const bytes=this.bytes(len*2); let v=0; for(let i=0;i<bytes.length;i++) v|=(bytes[i]<<(8*i)); return sign==='-'? -v : v }
+  arr(){ const n=this.fix(); const a=[]; this.objs.push(a); for(let i=0;i<n;i++) a.push(this.any()); return a }
+  hash(){ const n=this.fix(); const h={}; this.objs.push(h); for(let i=0;i<n;i++){ const k=this.any(); const v=this.any(); if(typeof k==='string'&&k.startsWith('@')) k=k.slice(1); h[k]=v } return h }
+  obj(){ const cls=this.any(); const n=this.fix(); const o={'_class':cls}; this.objs.push(o); for(let i=0;i<n;i++){ let k=this.any(); const v=this.any(); if(typeof k==='string'&&k.startsWith('@')) k=k.slice(1); o[k]=v } return o }
+  ivar(){ const o=this.any(); const n=this.fix(); for(let i=0;i<n;i++){ this.any(); this.any(); } return o }
+  any(){ const t=this.u8(); switch(t){ case 0x30:return null; case 0x54:return true; case 0x46:return false; case 0x69:return this.fix(); case 0x6c:return this.bignum();
+    case 0x22:{ const s=this.str(); this.objs.push(s); return s } case 0x3a:return this.sym(); case 0x3b:return this.symlink(); case 0x40:return this.link();
+    case 0x5b:return this.arr(); case 0x7b:return this.hash(); case 0x6f:return this.obj(); case 0x49:return this.ivar(); default: throw new Error('Unsupported tag '+t) } } }
+function isMon(o){ return o && typeof o==='object' && ('species' in o || /pokemon/i.test(String(o._class||''))) }
+function* walkBFS(root, max=80000){ const Q=[root]; const seen=new WeakSet(); let steps=0; while(Q.length){ const cur=Q.shift(); steps++; if(steps>max){ console.warn('Traversal cap'); return } if(cur && typeof cur==='object'){ if(seen.has(cur)) continue; seen.add(cur); yield cur; if(Array.isArray(cur)) cur.forEach(ch=>Q.push(ch)); else Object.values(cur).forEach(v=>Q.push(v)); } } }
+function normMoves(arr){ if(!Array.isArray(arr)) return []; return arr.map(m=> typeof m==='object' && m!==null ? (m.id!=null? String(m.id):(m.name||m.move||'Unknown')) : String(m)) }
+function normalizeSpecies(raw){ if(raw==null) return null; if(typeof raw==='number' || /^\\d+$/.test(String(raw))){ const key=String(raw); if(SPECIES_OVR[key]) return SPECIES_OVR[key]; return key } return String(raw) }
+
+async function readAsArrayBuffer(file){ return await new Promise((resolve,reject)=>{ const fr=new FileReader(); fr.onload=()=>resolve(fr.result); fr.onerror=()=>reject(fr.error||new Error('FileReader error')); fr.readAsArrayBuffer(file); }); }
+
+let TEAM=[];
+async function importRx(file){
+  try{
+    if(!file){ log('No hay archivo.'); return }
+    log('Detectado: '+file.name+' ('+file.size+' bytes)');
+    const buf = await readAsArrayBuffer(file);
+    let root=null; try{ const r=new R(buf); log('Ruby Marshal '+r.major+'.'+r.minor+' parseado.'); root=r.any(); } catch(e){ log('Fallo decodificando: '+(e.message||e)); return }
+    let party=null; let scanned=0;
+    if(root && Array.isArray(root.party)) party=root.party;
+    if(!party){ for(const node of walkBFS(root)){ scanned++; if(Array.isArray(node) && node.length>0 && node.length<=6 && node.every(isMon)){ party=node; break } if(node && !Array.isArray(node) && node.party && Array.isArray(node.party) && node.party.length>0 && node.party.length<=6 && node.party.every(isMon)){ party=node.party; break } } log('Escaneados '+scanned+' nodos.'); }
+    if(!party){ log('No encontré el party :('); return }
+    log('Party encontrado con '+party.length+' pokémon.');
+    TEAM = await Promise.all(party.map(async m=>{
+      const speciesKey = normalizeSpecies(m.species!=null? m.species : (m.Species||null));
+      const info = await fetchPokemon(speciesKey);
+      const moves = normMoves(m.moves || m.firstmoves || m.move_list || []);
+      return { nick:m.name||m.nickname||'', raw:speciesKey, species:info.name, sprite:info.sprite, types:info.types, moves, base:info.base };
+    }));
+    renderTeam();
+  }catch(err){ log('importRx error: '+(err.message||err)) }
+}
+
+function moveScore(moveType, oppTypes){
+  if(!moveType || !oppTypes || !oppTypes.length) return 1;
+  let mult=1;
+  function multVs(t){
+    TYPE_CACHE.get(moveType)?.damage_relations?.double_damage_to?.forEach(x=>{ if(x.name===t) mult*=2; });
+    TYPE_CACHE.get(moveType)?.damage_relations?.half_damage_to?.forEach(x=>{ if(x.name===t) mult/=2; });
+    TYPE_CACHE.get(moveType)?.damage_relations?.no_damage_to?.forEach(x=>{ if(x.name===t) mult*=0; });
+  }
+  oppTypes.forEach(multVs);
+  return mult;
+}
+
+async function ensureTypesLoaded(){
+  const all = Array.from(TYPES.values? TYPES : TYPES.keys()); // compat
+  await Promise.all([...TYPES].map(t=> fetchType(t)));
+}
+
+function renderTeam(){
+  const host=q('#team'); host.innerHTML='';
+  TEAM.forEach(m=>{
+    const card=el('div',{class:'card'});
+    const tps=(m.types||[]).map(t=> `<span class="pill">${t}</span>`).join(' ');
+    const mv=(m.moves||[]).map(x=> `<span class="pill">${MOVE_OVR[x]?.name||x}</span>`).join(' ');
+    card.innerHTML=`<div class="poke"><img class="sprite" src="${m.sprite||''}"><div><b>${m.nick? m.nick+' · ':''}${title(m.species||m.raw)}</b> ${tps? '· '+tps:''}<br><span class="small">${mv||'(sin moves?)'}</span></div></div>`;
+    host.appendChild(card);
+  });
+}
+
+// ---- PDF → dataset (heurístico) ----
+function isSpeciesToken(tok){
+  // Tokens en mayúsculas con letras/guiones/apóstrofes, con longitud decente
+  return /^[A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ'\\-]{2,}$/.test(tok) && tok.length<=20;
+}
+function likelySection(line){
+  return /(GIMNASIO|ALTO MANDO|CAMPE[ÓO]N|POST-?GAME|Comandante|Jefe del Team Rocket|Rival|L[ií]der)/i.test(line);
+}
+function toId(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+
+async function parsePdf(file){
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  log('PDF páginas: '+pdf.numPages);
+  let text='';
+  for(let p=1;p<=pdf.numPages;p++){
+    const page=await pdf.getPage(p);
+    const tc=await page.getTextContent();
+    // concatena con espacios y saltos cada X tokens
+    const parts=tc.items.map(i=> i.str.trim()).filter(Boolean);
+    text += parts.join(' ') + '\\n';
+  }
+  // Partimos por secciones
+  const blocks=text.split(/(?=GIMNASIO|ALTO MANDO|CAMPE[ÓO]N|POST-?GAME|Comandante|Jefe del Team Rocket|Rival)/i);
+  const trainers=[];
+  for(const block of blocks){
+    if(!block.trim()) continue;
+    const titleLine=(block.match(/^(.*?)(?=Nivel:|OBJ:|HAB:|\\n)/s)||[])[1] || block.slice(0,120);
+    const title=titleLine.trim().replace(/\s+/g,' ').slice(0,120);
+    const double=/doble/i.test(block);
+    // Detecta tokens de especies en mayúsculas consecutivas (limitamos a 6 por combate)
+    const toks=block.split(/\s+/).filter(isSpeciesToken).slice(0,6);
+    // Niveles
+    const levelMatches=[...block.matchAll(/Nivel:\s*(\d{1,3})/gi)];
+    const levels=levelMatches.map(m=> parseInt(m[1],10)).slice(0,toks.length);
+    // Normalizamos especies a nombres PokeAPI (minúscula)
+    const roster=toks.map(x=> x.toLowerCase());
+    if(roster.length){
+      trainers.push({ id: toId(title), title, double, roster, levels });
+    }
+  }
+  log('Detectados '+trainers.length+' combates del PDF.');
+  q('#json').value = JSON.stringify(trainers, null, 2);
+  saveTrain();
+  return trainers;
+}
+
+// ---- Guía: cálculo de efectividades y plan ----
+function bestMoveAgainst(ally, oppInfo){
+  // ally.moves son ids o nombres; resolvemos tipo y STAB
+  let best=null;
+  const allyTypes = new Set(ally.types||[]);
+  (ally.moves||[]).forEach(mvId=>{
+    const ovr=MOVE_OVR[mvId]; // {name,type}
+    const type = (ovr && ovr.type) || null;
+    const name = (ovr && ovr.name) || String(mvId);
+    const mult = type ? moveScore(type, oppInfo.types) : 1;
+    const stab = type && allyTypes.has(type) ? 1.5 : 1.0;
+    const score = mult*stab;
+    if(!best || score>best.score){ best={id:mvId, name, type, mult, stab, score}; }
+  });
+  return best;
+}
+function weaknessesOfTeam(oppType){
+  // devuelve cuántos de mi equipo son golpeados supereficazmente por cada tipo
+  const tally={};
+  TEAM.forEach(m=>{
+    (m.types||[]).forEach(defType=>{
+      // qué tipos pegan x2 contra defType? Revisamos cache de damage_relations
+      for(const [atkType,tData] of TYPE_CACHE){
+        const is2x = tData?.damage_relations?.double_damage_to?.some(x=> x.name===defType);
+        if(is2x){ tally[atkType]=(tally[atkType]||0)+1; }
+      }
+    });
+  });
+  return Object.entries(tally).sort((a,b)=> b[1]-a[1]);
+}
+
+async function generateGuide(){
+  await ensureTypesLoaded();
+  const guide=q('#guide'); guide.innerHTML='';
+  let trainers=[]; try{ trainers=JSON.parse(q('#json').value||'[]'); }catch(_){ trainers=[]; }
+  if(!trainers.length){ guide.innerHTML='<div class="card small">No hay dataset. Carga el PDF o pega JSON.</div>'; return; }
+  for(const t of trainers){
+    // Resolve opponent infos
+    const oppInfos = await Promise.all((t.roster||[]).map(async s=> await fetchPokemon(s)));
+    const card=el('div',{class:'card'});
+    const hdr=el('div',{class:'collapsible',html:`<h3>${title(t.title)} ${t.double? '· <span class="pill">Doble</span>':''}</h3>`});
+    const body=el('div',{}); // filled and hidden until click
+    card.appendChild(hdr); card.appendChild(body);
+    body.classList.add('hidden');
+    hdr.onclick=()=> body.classList.toggle('hidden');
+    // Opponent table
+    const rows=['<table class="table"><tr><th>Rival</th><th>Tipos</th><th>Mejores respuestas</th></tr>'];
+    for(const opp of oppInfos){
+      const types=(opp.types||[]).map(t=>`<span class="pill">${t}</span>`).join(' ');
+      // top 2 allies vs this opp
+      const scored = TEAM.map(a=>({ ally:a, best:bestMoveAgainst(a,opp) }))
+        .filter(x=> x.best).sort((a,b)=> b.best.score - a.best.score).slice(0,3);
+      const picks=scored.map(x=>{
+        const badge = x.best.mult>=2 ? 'kpill se' : x.best.mult<1 ? 'kpill ne' : 'kpill';
+        return `<div><b>${title(x.ally.nick||x.ally.species)}</b> — <span class="${badge}">x${x.best.mult.toFixed(1)}</span> <span class="pill">${x.best.type||'?'}</span> <span class="small">${x.best.name}</span></div>`;
+      }).join('');
+      rows.push(`<tr><td><b>${title(opp.name||'?')}</b></td><td>${types}</td><td>${picks}</td></tr>`);
+    }
+    rows.push('</table>');
+    body.appendChild(el('div',{html:rows.join('')}));
+    // Lead suggestion
+    const firstTwo = oppInfos.slice(0, t.double? 2 : 1);
+    const leadScores = TEAM.map(a=>{
+      let s=0; firstTwo.forEach(o=>{ const b=bestMoveAgainst(a,o); s += (b? b.score : 0); }); return {ally:a,score:s};
+    }).sort((a,b)=> b.score-a.score).slice(0, t.double? 2 : 1);
+    const leadDiv=el('div',{class:'note',html:`<b>Lead sugerido:</b> ${leadScores.map(x=> title(x.ally.nick||x.ally.species)).join(' + ') || '—'}`});
+    body.appendChild(leadDiv);
+    // Team weaknesses (threat scan)
+    const weak=weaknessesOfTeam();
+    const threat=el('div',{class:'note small',html:`<b>Amenazas globales vs tu equipo:</b> ${weak.slice(0,5).map(([t,c])=> `<span class="pill">${t}</span>(${c})`).join(' · ')}`});
+    body.appendChild(threat);
+    // Editor de notas
+    const notesId='notes-'+t.id;
+    const noteArea=el('textarea',{rows:4,id:notesId,placeholder:'Escribe tu plan aquí (cambios, items, turnos…)'});
+    noteArea.value = localStorage.getItem(notesId)||'';
+    noteArea.addEventListener('input', ()=> localStorage.setItem(notesId, noteArea.value));
+    body.appendChild(noteArea);
+    // Append
+    guide.appendChild(card);
+  }
+}
+
+// Buttons
+q('#loadRx').onclick = ()=>{ const f=q('#rx').files[0]; if(!f){ log('Selecciona .rxdata'); return } importRx(f); };
+q('#testPokeAPI').onclick = async ()=>{ try{ const r=await fetch('https://pokeapi.co/api/v2/pokemon/25'); log(r.ok? 'PokeAPI OK' : 'PokeAPI no OK: '+r.status); }catch(e){ log('PokeAPI error: '+(e.message||e)) } };
+q('#loadPdf').onclick = async ()=>{
+  const f=q('#pdf').files[0];
+  if(!f){ log('Selecciona el PDF'); return }
+  const ds = await parsePdf(f);
+  log('Dataset generado con '+ds.length+' combates. Ahora pulsa "Generar guía".');
+};
+q('#genGuide').onclick = ()=> generateGuide();
+q('#saveJson').onclick = ()=>{ saveTrain(); log('JSON guardado.'); };
+q('#downloadJson').onclick = ()=>{
+  const blob = new Blob([q('#json').value||'[]'], {type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='trainers.json'; a.click();
+};
+
+// Semilla mínima con los combates clave (editable). Puedes reemplazarlo cargando el PDF arriba.
+const seed=[
+  {"id":"koga","title":"Gimnasio 05 — Koga & Sachiko (Doble)","double":true,"roster":["dragalge","drapion","crobat","beedrill"],"levels":[48,48,49,49]},
+  {"id":"sabrina","title":"Gimnasio 06 — Sabrina","double":false,"roster":["farigiraf","gothitelle","slowking-galar","sigilyph","alakazam"],"levels":[53,53,53,53,54]},
+  {"id":"blaine","title":"Gimnasio 07 — Blaine","double":false,"roster":["torkoal","turtonator","sunflora","typhlosion","houndoom"],"levels":[56,57,58,58,59]},
+  {"id":"viridian","title":"Gimnasio 08 — Urano","double":false,"roster":["scyther","heracross","kabutops","yanmega","pinsir"],"levels":[64,64,64,65,66]},
+  {"id":"elite-lorelei","title":"Alto Mando 1 — Lorelei","double":false,"roster":["aurorus","jynx","weavile","mamoswine","lapras"],"levels":[68,69,69,69,70]},
+  {"id":"elite-bruno","title":"Alto Mando 2 — Bruno","double":false,"roster":["steelix","hitmonchan","hitmonlee","lucario","machamp"],"levels":[69,70,70,70,71]},
+  {"id":"elite-agatha","title":"Alto Mando 3 — Agatha","double":false,"roster":["crobat","mismagius","golurk","chandelure","gengar"],"levels":[70,71,71,71,72]},
+  {"id":"elite-lance","title":"Alto Mando 4 — Lance","double":false,"roster":["haxorus","kingdra","hydreigon","ampharos","dragonite"],"levels":[71,72,72,72,73]},
+  {"id":"champion-azul","title":"Campeón — Azul (variantes por inicial)","double":false,"roster":["pidgeot","heracross","alakazam","rhyperior","tentacruel","charizard"],"levels":[73,74,74,73,73,75]}
+];
+q('#json').value = localStorage.getItem(LS_JSON) || JSON.stringify(seed, null, 2);
+
+// Preload some type data to make first render faster
+(async()=>{ await ensureTypesLoaded(); })();
+
+// Seed some known move IDs from tus capturas
+Object.assign(MOVE_OVR, {
+  "145": {name:"Nitrocarga", type:"fire"},
+  "172": {name:"Respiro", type:"flying"},
+  "6":   {name:"Ida y Vuelta", type:"bug"},
+  "160": {name:"Golpe Aéreo", type:"flying"},
+  "49":  {name:"Mofa", type:"dark"},
+  "458": {name:"Psico-corte", type:"psychic"},
+  "34":  {name:"Ladrón", type:"dark"}
+});
+saveOvr();
+log('v6 lista. 1) Carga tu .rxdata. 2) Carga PDF y pulsa "Leer PDF". 3) Genera la guía.');
+</script>
+</body>
+</html>
