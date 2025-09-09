@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Trainer, TeamMon, PcMon } from '../models';
-import { getPokemon, getMove, getMultiplier } from '../lib/pokeapi';
-import { TypeBadge } from './TypeBadge';
-
-const normalize = (s: string) =>
-  s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[^a-z0-9-]/g, '-')
-    .replace(/-+/g, '-');
+import { getPokemon, getMultiplier } from '../lib/pokeapi';
+import { getMove } from '../lib/data';
+import { TypeBadge, typeNames } from './TypeBadge';
 
 interface Props {
   trainers: Trainer[];
@@ -28,11 +22,13 @@ export default function Guide({ trainers, team, pc }: Props) {
         for (const moves of tr.moves) {
           for (const mv of moves) {
             try {
-              const { type } = await getMove(normalize(mv));
-              team.forEach((mon) => {
-                const mult = getMultiplier(type, mon.types);
-                if (mult >= 2) set.add(type);
-              });
+              const data = await getMove(mv);
+              if (data) {
+                team.forEach((mon) => {
+                  const mult = getMultiplier(data.type, mon.types);
+                  if (mult >= 2) set.add(data.type);
+                });
+              }
             } catch {
               // ignore
             }
@@ -63,7 +59,7 @@ export default function Guide({ trainers, team, pc }: Props) {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl mb-2 text-yellow-100">Guide</h2>
+      <h2 className="text-xl mb-2 text-yellow-100">Guía</h2>
       {trainers.map((tr, idx) => (
         <div
           key={idx}
@@ -74,7 +70,7 @@ export default function Guide({ trainers, team, pc }: Props) {
             onClick={() => setOpen(open === idx ? null : idx)}
           >
             <div>
-              {tr.title} {tr.double && <span className="text-xs">Double</span>}
+              {tr.title} {tr.double && <span className="text-xs">Doble</span>}
             </div>
             <div>{open === idx ? '-' : '+'}</div>
           </div>
@@ -82,10 +78,10 @@ export default function Guide({ trainers, team, pc }: Props) {
             <table className="w-full text-xs mt-2">
               <thead>
                 <tr>
-                  <th>Rival</th>
-                  <th>Types</th>
-                  <th>Moves</th>
-                  <th>Threats</th>
+                  <th>Enemigo</th>
+                  <th>Tipos</th>
+                  <th>Movimientos</th>
+                  <th>Amenazas</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,11 +100,11 @@ export default function Guide({ trainers, team, pc }: Props) {
       ))}
       {suggestions.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-lg">Suggestions</h3>
+          <h3 className="text-lg">Sugerencias</h3>
           <ul className="list-disc ml-5 text-sm">
             {suggestions.map((s, i) => (
               <li key={i}>
-                {s.mon.nick || s.mon.species}: resists {s.types.join(', ')}
+                {s.mon.nick || s.mon.species}: resiste {s.types.map(t=>typeNames[t]||t).join(', ')}
               </li>
             ))}
           </ul>
@@ -124,7 +120,7 @@ function TrainerRow({
   team,
 }: {
   species: string | number;
-  moves: string[];
+  moves: number[];
   team: TeamMon[];
 }) {
   const [types, setTypes] = useState<string[]>([]);
@@ -173,25 +169,31 @@ function TrainerRow({
   );
 }
 
-function MoveCell({ move }: { move: string }) {
-  const [type, setType] = useState('');
+function MoveCell({ move }: { move: number }) {
+  const [data, setData] = useState<{ type: string; name: string } | null>(null);
   useEffect(() => {
-    getMove(normalize(move))
-      .then((m) => setType(m.type))
-      .catch(() => setType('?'));
+    getMove(move)
+      .then((m) => setData(m || null))
+      .catch(() => setData(null));
   }, [move]);
   return (
     <li>
-      {move} {type && <TypeBadge type={type} />}
+      {data ? (
+        <>
+          {data.name} <TypeBadge type={data.type} />
+        </>
+      ) : (
+        move
+      )}
     </li>
   );
 }
 
-function ThreatCell({ move, team }: { move: string; team: TeamMon[] }) {
+function ThreatCell({ move, team }: { move: number; team: TeamMon[] }) {
   const [type, setType] = useState('');
   useEffect(() => {
-    getMove(normalize(move))
-      .then((m) => setType(m.type))
+    getMove(move)
+      .then((m) => setType(m?.type || ''))
       .catch(() => setType(''));
   }, [move]);
   const threats = team.filter(
