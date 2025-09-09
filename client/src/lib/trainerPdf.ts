@@ -1,6 +1,7 @@
 import type { Trainer } from '../models';
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
-import workerSrc from 'pdfjs-dist/legacy/build/pdf.worker.min.js?url';
+// Use the modern ESM build of pdf.js and explicitly point to the worker.
+import * as pdfjsLib from 'pdfjs-dist';
+import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 
 (pdfjsLib as any).GlobalWorkerOptions.workerSrc = workerSrc;
@@ -17,10 +18,10 @@ export async function parseTrainerPdf(data: ArrayBuffer): Promise<Trainer[]> {
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const content = await page.getTextContent();
-    raw +=
-      content.items
-        .map((it: any) => ('str' in it ? it.str : ''))
-        .join(' ') + '\n';
+    for (const it of content.items as any[]) {
+      if ('str' in it) raw += it.str;
+      raw += it.hasEOL ? '\n' : ' ';
+    }
   }
   const lines = raw
     .split(/\n+/)
