@@ -179,6 +179,14 @@ function parseRxdata(buf: ArrayBuffer): PcMon[] {
   const walk = (node: any) => {
     if (!node || typeof node !== 'object' || seen.has(node)) return;
     seen.add(node);
+    if (node.__raw__ instanceof Uint8Array) {
+      try {
+        const inner = decodeMarshal(node.__raw__);
+        walk(inner);
+      } catch {
+        // ignore decode errors
+      }
+    }
     const species = node['@species'] ?? node.species ?? node.Species;
     if (species !== undefined) {
       const nick = node['@name'] ?? node.name ?? node.nickname;
