@@ -58,14 +58,3 @@ export function getMultiplier(moveType: string, targetTypes: string[]): number {
   return mult;
 }
 
-export async function getMove(name: string) {
-  const key = `move_${name}`;
-  const cached = cacheGet(key);
-  if (cached) return cached;
-  const res = await fetch(`${base}/move/${name}`);
-  if (!res.ok) throw new Error('pokeapi');
-  const data = await res.json();
-  const out = { type: data.type.name };
-  cacheSet(key, out);
-  return out;
-}
