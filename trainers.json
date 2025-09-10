@@ -1,0 +1,2453 @@
+[
+  {
+    "trainer": "Rival Azul - Laboratorio del Profesor Oak (Pueblo Paleta)",
+    "pokemons": [
+      {
+        "name": "BULBASAUR",
+        "level": 5,
+        "item": "Ninguno",
+        "ability": "Espesura",
+        "moves": [
+          "PLACAJE",
+          "GRUÑIDO"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "CHARMANDER",
+        "level": 5,
+        "item": "Ninguno",
+        "ability": "Mar Llamas",
+        "moves": [
+          "ARAÑAZO",
+          "GRUÑIDO"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "SQUIRTLE",
+        "level": 5,
+        "item": "Ninguno",
+        "ability": "Torrente",
+        "moves": [
+          "PLACAJE",
+          "LÁTIGO"
+        ],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Ruta 20, al oeste de Ciudad Verde (hacia la Liga Pokémon)",
+    "pokemons": [
+      {
+        "name": "PIDGEY",
+        "level": 7,
+        "item": "Ninguno",
+        "ability": "Vista Lince",
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "BULBASAUR",
+        "level": 8,
+        "item": "Ninguno",
+        "ability": "Espesura",
+        "moves": [
+          "PLACAJE",
+          "GRUÑIDO"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "CHARMANDER",
+        "level": 8,
+        "item": "Ninguno",
+        "ability": "Mar Llamas",
+        "moves": [
+          "ARAÑAZO",
+          "GRUÑIDO",
+          "ASCUAS"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "SQUIRTLE",
+        "level": 8,
+        "item": "Ninguno",
+        "ability": "Torrente",
+        "moves": [
+          "PLACAJE",
+          "LÁTIGO",
+          "BURBUJA"
+        ],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Contraparte - Ruta 2 (sur), antes de entrar al Bosque Verde",
+    "pokemons": [
+      {
+        "name": "MANKEY",
+        "level": 6,
+        "item": "Ninguno",
+        "ability": "Irascible",
+        "moves": [
+          "ARAÑAZO",
+          "MALICIOSO",
+          "FOCO ENERGÍA",
+          "PATADA BAJA"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "BULBASAUR",
+        "level": 7,
+        "item": "Ninguno",
+        "ability": "Espesura",
+        "moves": [
+          "PLACAJE"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "CHARMANDER",
+        "level": 7,
+        "item": "Ninguno",
+        "ability": "Mar Llamas",
+        "moves": [
+          "ARAÑAZO"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "SQUIRTLE",
+        "level": 7,
+        "item": "Ninguno",
+        "ability": "Torrente",
+        "moves": [
+          "PLACAJE"
+        ],
+        "isMega": false
+      },
+      {
+        "name": "SLAKOTH",
+        "level": 11,
+        "item": "Pañuelo Seda",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SKITTY",
+        "level": 11,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LOUDRED",
+        "level": 12,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 01 - CIUDAD PLATEADA (TIPO ROCA)",
+    "pokemons": [
+      {
+        "name": "DWEBBLE",
+        "level": 11,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "BONSLY",
+        "level": 12,
+        "item": "Cinta Fuerte",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ONIX",
+        "level": 14,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Contraparte - Monte Moon",
+    "pokemons": [
+      {
+        "name": "MANKEY",
+        "level": 16,
+        "item": "Ninguno",
+        "ability": "Fuga",
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HOOTHOOT",
+        "level": 16,
+        "item": "Ninguno",
+        "ability": "Fuga",
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "IVYSAUR",
+        "level": 17,
+        "item": "Semilla Milagro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARMELEON",
+        "level": 17,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WARTORTLE",
+        "level": 17,
+        "item": "Agua Mística",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Comandante del Team Rocket - Monte Moon",
+    "pokemons": [
+      {
+        "name": "IMPIDIMP",
+        "level": 18,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HOUNDOUR",
+        "level": 18,
+        "item": "Gafas de Sol",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GOLBAT",
+        "level": 19,
+        "item": "Baya Aranja",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Ciudad Celeste",
+    "pokemons": [
+      {
+        "name": "PIDGEOTTO",
+        "level": 17,
+        "item": "Ninguno",
+        "ability": "Vista Lince",
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RATICATE",
+        "level": 17,
+        "item": "Ninguno",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KADABRA",
+        "level": 18,
+        "item": "Ninguno",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "IVYSAUR",
+        "level": 19,
+        "item": "Baya Aranja",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARMELEON",
+        "level": 19,
+        "item": "Baya Aranja",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WARTORTLE",
+        "level": 19,
+        "item": "Baya Aranja",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAGMAR",
+        "level": 21,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAGCARGO",
+        "level": 21,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TORKOAL",
+        "level": 22,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 02 - CIUDAD CELESTE (TIPO AGUA)",
+    "pokemons": [
+      {
+        "name": "GOLDEEN",
+        "level": 21,
+        "item": "Roca Lluvia",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "FLOATZEL",
+        "level": 22,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "STARMIE",
+        "level": 23,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Comandante Rocket - Barco S. S. Anne",
+    "pokemons": [
+      {
+        "name": "MURKROW",
+        "level": 25,
+        "item": "Periscopio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WHIRLIPEDE",
+        "level": 26,
+        "item": "Lodo Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ARBOK",
+        "level": 27,
+        "item": "Flecha Venenosa",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TROPIUS",
+        "level": 26,
+        "item": "Baya Rimoya",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PELIPPER",
+        "level": 26,
+        "item": "Agua Mística",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SKARMORY",
+        "level": 26,
+        "item": "Casco Dentado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALTARIA",
+        "level": 27,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 03 - CIUDAD CARMÍN (TIPO ELÉCTRICO)",
+    "pokemons": [
+      {
+        "name": "ELECTRODE",
+        "level": 28,
+        "item": "Reﬂeluz",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAGNETON",
+        "level": 28,
+        "item": "Globo Helio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GALVANTULA",
+        "level": 29,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RAICHU",
+        "level": 30,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Contraparte - Ruta 10",
+    "pokemons": [
+      {
+        "name": "PRIMEAPE",
+        "level": 30,
+        "item": "Cinta Fuerte",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 30,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "EEVEE",
+        "level": 30,
+        "item": "Pañuelo Seda",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "IVYSAUR",
+        "level": 31,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARMELEON",
+        "level": 31,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WARTORTLE",
+        "level": 31,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Torre Pokémon de Pueblo Lavanda (PROTAGONISTA = INICIAL PLANTA)",
+    "pokemons": [
+      {
+        "name": "PIDGEOTTO",
+        "level": 33,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KADABRA",
+        "level": 34,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GYARADOS",
+        "level": 34,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARMELEON",
+        "level": 35,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Torre Pokémon de Pueblo Lavanda (PROTAGONISTA = INICIAL FUEGO)",
+    "pokemons": [
+      {
+        "name": "PIDGEOTTO",
+        "level": 33,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KADABRA",
+        "level": 34,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "EXEGGCUTE",
+        "level": 34,
+        "item": "Reﬂeluz",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WARTORTLE",
+        "level": 35,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Torre Pokémon de Pueblo Lavanda (PROTAGONISTA = INICIAL AGUA)",
+    "pokemons": [
+      {
+        "name": "PIDGEOTTO",
+        "level": 33,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KADABRA",
+        "level": 34,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GROWLITHE",
+        "level": 34,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "IVYSAUR",
+        "level": 35,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "EMOLGA",
+        "level": 36,
+        "item": "Gema Eléctrica",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ELECTABUZZ",
+        "level": 36,
+        "item": "Mineral Evolutivo",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "EELEKTROSS",
+        "level": 36,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MANECTRIC",
+        "level": 37,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 04 - CIUDAD AZULONA (TIPO PLANTA)",
+    "pokemons": [
+      {
+        "name": "TANGROWTH",
+        "level": 37,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SUDOWOODO",
+        "level": 38,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LILLIGANT",
+        "level": 38,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "VILEPLUME",
+        "level": 39,
+        "item": "Hierba Única",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "JEFE DEL TEAM ROCKET - Base Team Rocket",
+    "pokemons": [
+      {
+        "name": "PERSIAN",
+        "level": 39,
+        "item": "Roca del Rey",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NIDOKING",
+        "level": 39,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KANGASKHAN",
+        "level": 39,
+        "item": "Pañuelo Seda",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RHYDON",
+        "level": 40,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SCYTHER",
+        "level": 40,
+        "item": "Mineral Evolutivo",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HERACROSS",
+        "level": 40,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KABUTOPS",
+        "level": 41,
+        "item": "Pañuelo Elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GOLPE AÉREO IDA Y VUELTA IDA Y VUELTA",
+        "level": 42,
+        "item": "Mega Piedra",
+        "ability": "Piel Celeste",
+        "moves": [
+          "TIJERA X",
+          "DEMOLICIÓN"
+        ],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "Alto Mando Agatha - Pueblo Marengo",
+    "pokemons": [
+      {
+        "name": "BANETTE",
+        "level": 40,
+        "item": "Mineral Evolutivo*",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MISDREAVUS",
+        "level": 41,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GENGAR",
+        "level": 42,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Contraparte - Antes de llegar a Ciudad Fucsia (PROTAGONISTA = INICIAL PLANTA)",
+    "pokemons": [
+      {
+        "name": "PRIMEAPE",
+        "level": 43,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 44,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "JOLTEON",
+        "level": 44,
+        "item": "Imán",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "BLASTOISE",
+        "level": 45,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Contraparte - Antes de llegar a Ciudad Fucsia (PROTAGONISTA = INICIAL FUEGO)",
+    "pokemons": [
+      {
+        "name": "PRIMEAPE",
+        "level": 43,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 44,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "FLAREON",
+        "level": 44,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "VENUSAUR",
+        "level": 45,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Contraparte - Antes de llegar a Ciudad Fucsia (PROTAGONISTA = INICIAL AGUA)",
+    "pokemons": [
+      {
+        "name": "PRIMEAPE",
+        "level": 43,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 44,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "VAPOREON",
+        "level": 44,
+        "item": "Agua Mística",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARIZARD",
+        "level": 45,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "Líder de",
+        "level": 46,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "ARMALDO",
+        "level": 46,
+        "item": "Hierba Blanca",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CRADILY",
+        "level": 46,
+        "item": "Raíz Grande",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PROBOPASS",
+        "level": 47,
+        "item": "Globo Helio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 05 - CIUDAD FUCSIA (TIPO VENENO & SINIESTRO)",
+    "pokemons": [
+      {
+        "name": "DRAGALGE",
+        "level": 48,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "DRAPION",
+        "level": 48,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CROBAT",
+        "level": 49,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ONDA TÓXICA AVALANCHA PROTECCIÓN",
+        "level": 49,
+        "item": "Mega Piedra",
+        "ability": "Adaptable",
+        "moves": [
+          "PUYA NOCIVA",
+          "PIN MISIL"
+        ],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "Motorista Jefe - Camino de Bicis",
+    "pokemons": [
+      {
+        "name": "CRABOMINABLE",
+        "level": 48,
+        "item": "Cinturón Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PERSIAN-ALOLA",
+        "level": 48,
+        "item": "Casco Dentado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARIZARD X",
+        "level": 50,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Maestro Karateka del Gimnasio no oﬁcial de Ciudad Azafrán - Ciudad Azafrán",
+    "pokemons": [
+      {
+        "name": "HITMONLEE",
+        "level": 50,
+        "item": "Cinturón Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HITMONCHAN",
+        "level": 50,
+        "item": "Cinturón Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HITMONTOP",
+        "level": 50,
+        "item": "Cinturón Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Comandante Rocket - Silph S. A. (Ciudad Azafrán)",
+    "pokemons": [
+      {
+        "name": "GRIMMSNARL",
+        "level": 48,
+        "item": "Reﬂeluz",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HOUNDOOM",
+        "level": 48,
+        "item": "Gafas de Sol",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CROBAT",
+        "level": 50,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Comandante Rocket - Silph S. A. (Ciudad Azafrán)",
+    "pokemons": [
+      {
+        "name": "HONCHKROW",
+        "level": 48,
+        "item": "Periscopio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SCOLIPEDE",
+        "level": 48,
+        "item": "Lodo Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ARBOK",
+        "level": 50,
+        "item": "Flecha Venenosa",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Ediﬁcio Silph S. A. (PROTAGONISTA = INICIAL PLANTA)",
+    "pokemons": [
+      {
+        "name": "PIDGEOT",
+        "level": 50,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALAKAZAM",
+        "level": 50,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GYARADOS",
+        "level": 50,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHARIZARD",
+        "level": 51,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Ediﬁcio Silph S. A. (PROTAGONISTA = INICIAL FUEGO)",
+    "pokemons": [
+      {
+        "name": "PIDGEOT",
+        "level": 50,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALAKAZAM",
+        "level": 50,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "EXEGGUTOR",
+        "level": 50,
+        "item": "Gema Planta",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "BLASTOISE",
+        "level": 51,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Rival Azul - Ediﬁcio Silph S. A. (PROTAGONISTA = INICIAL AGUA)",
+    "pokemons": [
+      {
+        "name": "PIDGEOT",
+        "level": 50,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALAKAZAM",
+        "level": 50,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ARCANINE",
+        "level": 50,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "VENUSAUR",
+        "level": 51,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Jefe del Team Rocket - Ediﬁcio Silph S. A.",
+    "pokemons": [
+      {
+        "name": "PERSIAN",
+        "level": 51,
+        "item": "Roca del Rey",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NIDOKING",
+        "level": 51,
+        "item": "Cinta Experto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NIDOQUEEN",
+        "level": 51,
+        "item": "Cinta Experto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "IDA Y VUELTA",
+        "level": 52,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "RHYPERIOR",
+        "level": 53,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MIENSHAO",
+        "level": 50,
+        "item": "Cinta Elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LUCARIO",
+        "level": 50,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MACHAMP",
+        "level": 51,
+        "item": "Llamasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "DESARME",
+        "level": 51,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "HARIYAMA",
+        "level": 52,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 06 - CIUDAD AZAFRÁN (TIPO PSÍQUICO)",
+    "pokemons": [
+      {
+        "name": "FARIGIRAF",
+        "level": 53,
+        "item": "Reﬂeluz",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GOTHITELLE",
+        "level": 53,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SLOWKING-GALAR",
+        "level": 53,
+        "item": "Lodo Negro",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SIGILYPH",
+        "level": 53,
+        "item": "Cuchara Torcida",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PAZ MENTAL RELAJO",
+        "level": 54,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "Comandante del Team Rocket - Mansión Pokémon (Isla Canela)",
+    "pokemons": [
+      {
+        "name": "WIGGLYTUFF",
+        "level": 56,
+        "item": "Garra Rápida",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RAPIDASH-GALAR",
+        "level": 56,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TOGEKISS",
+        "level": 57,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAIDIBLE",
+        "level": 58,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LUDICOLO",
+        "level": 57,
+        "item": "Roca Lluvia",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GYARADOS",
+        "level": 57,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SHARPEDO",
+        "level": 57,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KINGDRA",
+        "level": 57,
+        "item": "Periscopio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MILOTIC",
+        "level": 58,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 07 - ISLA CANELA (TIPO FUEGO)",
+    "pokemons": [
+      {
+        "name": "TORKOAL",
+        "level": 56,
+        "item": "Roca Calor",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TURTONATOR",
+        "level": 57,
+        "item": "Hierba Blanca",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SUNFLORA",
+        "level": 58,
+        "item": "Roca Calor",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TYPHLOSION",
+        "level": 58,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RAYO SOLAR DÍA SOLEADO",
+        "level": 59,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "Comandante del Team Rocket - Cueva Celeste (COMBATE DOBLE)",
+    "pokemons": [
+      {
+        "name": "WIGGLYTUFF",
+        "level": 60,
+        "item": "Garra Rápida",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TINKATON",
+        "level": 61,
+        "item": "Cinta elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SCRAFTY",
+        "level": 61,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WEAVILE",
+        "level": 62,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAIDIBLE",
+        "level": 62,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "Jefe del Team Rocket - Bosque Celeste",
+    "pokemons": [
+      {
+        "name": "PERSIAN",
+        "level": 61,
+        "item": "Roca del Rey",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TYRANITAR",
+        "level": 61,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NIDOKING",
+        "level": 61,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NIDOQUEEN",
+        "level": 62,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PUÑO FUEGO",
+        "level": 62,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "RHYPERIOR",
+        "level": 63,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "GIMNASIO 08 - CIUDAD VERDE (TIPO BICHO, mayormente)",
+    "pokemons": [
+      {
+        "name": "SCYTHER",
+        "level": 64,
+        "item": "Mineral Evolutivo",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HERACROSS",
+        "level": 64,
+        "item": "Llamasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KABUTOPS",
+        "level": 64,
+        "item": "Cinta Elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "YANMEGA",
+        "level": 65,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ROCA AFILADA PIRUETA HELADA",
+        "level": 66,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "SOLROCK",
+        "level": 67,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LUNATONE",
+        "level": 67,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CLAYDOL",
+        "level": 67,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GALLADE",
+        "level": 68,
+        "item": "Pañuelo Elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "FUERZA LUNAR CAMPO PSÍQUICO",
+        "level": 68,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "ANNIHILAPE",
+        "level": 68,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 68,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SNORLAX",
+        "level": 68,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KINGAMBIT",
+        "level": 69,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "JOLTEON",
+        "level": 69,
+        "item": "Imán",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "AMNESIA",
+        "level": 70,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "ANNIHILAPE",
+        "level": 68,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 68,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SNORLAX",
+        "level": 68,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KINGAMBIT",
+        "level": 69,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "FLAREON",
+        "level": 69,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "AMNESIA",
+        "level": 70,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "ANNIHILAPE",
+        "level": 68,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "NOCTOWL",
+        "level": 68,
+        "item": "Gafas Especiales",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SNORLAX",
+        "level": 68,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KINGAMBIT",
+        "level": 69,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "VAPOREON",
+        "level": 69,
+        "item": "Agua Mística",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "AMNESIA",
+        "level": 70,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "ALTO MANDO DE LA LIGA POKÉMON - Combate n.º 1 de 4 (Sede de la Liga Pokémon, Ciudad Añil)",
+    "pokemons": [
+      {
+        "name": "AURORUS",
+        "level": 68,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "JYNX",
+        "level": 69,
+        "item": "Lupa",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "WEAVILE",
+        "level": 69,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAMOSWINE",
+        "level": 69,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAQUINACIÓN DANZA ESPADA",
+        "level": 70,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "ALTO MANDO DE LA LIGA POKÉMON - Combate n.º 2 de 4 (Sede de la Liga Pokémon, Ciudad Añil)",
+    "pokemons": [
+      {
+        "name": "STEELIX",
+        "level": 69,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HITMONCHAN",
+        "level": 70,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HITMONLEE",
+        "level": 70,
+        "item": "Lupa",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LUCARIO",
+        "level": 70,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ULTRAPUÑO PATADA ÍGNEA",
+        "level": 71,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "ALTO MANDO DE LA LIGA POKÉMON - Combate n.º 3 de 4 (Sede de la Liga Pokémon, Ciudad Añil)",
+    "pokemons": [
+      {
+        "name": "CROBAT",
+        "level": 70,
+        "item": "Gema Voladora",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MISMAGIUS",
+        "level": 71,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GOLURK",
+        "level": 71,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CHANDELURE",
+        "level": 71,
+        "item": "Hierba Única",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MAQUINACIÓN TERREMOTO",
+        "level": 72,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "ALTO MANDO DE LA LIGA POKÉMON - Combate n.º 4 de 4 (Sede de la Liga Pokémon, Ciudad Añil)",
+    "pokemons": [
+      {
+        "name": "HAXORUS",
+        "level": 71,
+        "item": "Cinta Fuerte",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "KINGDRA",
+        "level": 72,
+        "item": "Periscopio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HYDREIGON",
+        "level": 72,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "DANZA DRAGÓN",
+        "level": 72,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "DRAGONITE",
+        "level": 73,
+        "item": "Seguro Debilidad",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PIDGEOT",
+        "level": 73,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HERACROSS",
+        "level": 74,
+        "item": "Llamasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALAKAZAM",
+        "level": 74,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RHYPERIOR",
+        "level": 73,
+        "item": "Baya Pasio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "TENTACRUEL",
+        "level": 73,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ONDA CERTERA",
+        "level": 75,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "PIDGEOT",
+        "level": 73,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HERACROSS",
+        "level": 74,
+        "item": "Llamasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALAKAZAM",
+        "level": 74,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RHYPERIOR",
+        "level": 73,
+        "item": "Baya Pasio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "EXEGGUTOR",
+        "level": 73,
+        "item": "Reﬂeluz",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ONDA CERTERA",
+        "level": 75,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "PIDGEOT",
+        "level": 73,
+        "item": "Pico Aﬁlado",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HERACROSS",
+        "level": 74,
+        "item": "Llamasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ALAKAZAM",
+        "level": 74,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RHYPERIOR",
+        "level": 73,
+        "item": "Baya Pasio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ARCANINE",
+        "level": 73,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ONDA CERTERA",
+        "level": 75,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "TAUROS",
+        "level": 76,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MUK",
+        "level": 76,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "HYPNO",
+        "level": 76,
+        "item": "Lupa",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SNORLAX",
+        "level": 77,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "PUÑO FUEGO",
+        "level": 78,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      },
+      {
+        "name": "CELEBI",
+        "level": 77,
+        "item": "Baya Zidra",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "DRAGONITE",
+        "level": 76,
+        "item": "Baya Rimoya",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LUCARIO",
+        "level": 76,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SIRFETCH’D",
+        "level": 76,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "DRACOVISH",
+        "level": 77,
+        "item": "Agua Mística",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "GENGAR",
+        "level": 77,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "DESARME",
+        "level": 78,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "VAPOREON",
+        "level": 78,
+        "item": "Agua Mística",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "JOLTEON",
+        "level": 78,
+        "item": "Imán",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "FLAREON",
+        "level": 78,
+        "item": "Carbón",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ESPEON",
+        "level": 78,
+        "item": "Cuchara Torcida",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "UMBREON",
+        "level": 78,
+        "item": "Gafas de sol",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "SKARMORY",
+        "level": 78,
+        "item": "Tarjeta Roja",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "AGGRON",
+        "level": 78,
+        "item": "Globo Helio",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "CRADILY",
+        "level": 78,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ARMALDO",
+        "level": 78,
+        "item": "Cinta Elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ACUA COLA TÓXICO",
+        "level": 79,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "ROSERADE",
+        "level": 79,
+        "item": "Hierba Blanca",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SPIRITOMB",
+        "level": 79,
+        "item": "Baya Ziuela",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LUCARIO",
+        "level": 79,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MILOTIC",
+        "level": 79,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "RAYO CONFUSO MAQUINACIÓN",
+        "level": 80,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "GALVANTULA",
+        "level": 79,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "SCOLIPEDE",
+        "level": 79,
+        "item": "Banda Focus",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ACCELGOR",
+        "level": 79,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ESCAVALIER",
+        "level": 79,
+        "item": "Cinta Elección",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "VOLCARONA",
+        "level": 80,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      }
+    ]
+  },
+  {
+    "trainer": "POST-GAME",
+    "pokemons": [
+      {
+        "name": "ARTICUNO-GALAR",
+        "level": 84,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "ZAPDOS-GALAR",
+        "level": 84,
+        "item": "Vidasfera",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "MOLTRES-GALAR",
+        "level": 84,
+        "item": "Baya Atania",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "URSALUNA",
+        "level": 84,
+        "item": "Chaleco Asalto",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "LAPRAS",
+        "level": 84,
+        "item": "Restos",
+        "ability": null,
+        "moves": [],
+        "isMega": false
+      },
+      {
+        "name": "supereﬁcaz.",
+        "level": 85,
+        "item": null,
+        "ability": null,
+        "moves": [],
+        "isMega": true
+      }
+    ]
+  }
+]
