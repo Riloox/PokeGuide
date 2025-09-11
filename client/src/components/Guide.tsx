@@ -71,6 +71,11 @@ export default function Guide({ trainers, team, pc }: Props) {
           >
             <div>
               {tr.title} {tr.double && <span className="text-xs">Doble</span>}
+              {tr.starting !== undefined && (
+                <div className="text-xs mt-1">
+                  Empieza con {String(tr.roster[tr.starting])}
+                </div>
+              )}
             </div>
             <div>{open === idx ? '-' : '+'}</div>
           </div>
@@ -82,6 +87,7 @@ export default function Guide({ trainers, team, pc }: Props) {
                   <th>Tipos</th>
                   <th>Movimientos</th>
                   <th>Amenazas</th>
+                  <th>Consejos</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,6 +97,7 @@ export default function Guide({ trainers, team, pc }: Props) {
                     species={sp}
                     moves={tr.moves[i]}
                     team={team}
+                    tip={tr.tips?.[i]}
                   />
                 ))}
               </tbody>
@@ -118,10 +125,12 @@ function TrainerRow({
   species,
   moves,
   team,
+  tip,
 }: {
   species: string | number;
   moves: number[];
   team: TeamMon[];
+  tip?: string[];
 }) {
   const [types, setTypes] = useState<string[]>([]);
   const [sprite, setSprite] = useState<string>('');
@@ -162,6 +171,13 @@ function TrainerRow({
         <ul>
           {moves.map((mv, idx) => (
             <ThreatCell key={idx} move={mv} team={team} />
+          ))}
+        </ul>
+      </td>
+      <td>
+        <ul>
+          {tip?.map((t, i) => (
+            <li key={i}>{t}</li>
           ))}
         </ul>
       </td>

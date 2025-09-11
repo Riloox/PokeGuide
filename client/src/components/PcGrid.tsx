@@ -103,6 +103,26 @@ export default function PcGrid({
             <button
               className="mt-1 border border-yellow-500 px-1"
               onClick={() => {
+                const sp = prompt('Nueva especie', m.species);
+                if (sp) {
+                  const updated = {
+                    ...m,
+                    species: sp,
+                    speciesName: undefined,
+                    sprite: undefined,
+                    types: [],
+                  };
+                  const newPc = [...pc];
+                  newPc[i] = updated;
+                  setPc(newPc);
+                }
+              }}
+            >
+              Corregir
+            </button>
+            <button
+              className="mt-1 border border-yellow-500 px-1"
+              onClick={() => {
                 if (team.length >= 6) return;
                 const newPc = pc.filter((_, idx) => idx !== i);
                 setPc(newPc);
