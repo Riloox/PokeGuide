@@ -3,6 +3,25 @@ import { parseRxdata } from '../lib/rxdata';
 import { TeamMon, PcMon, Trainer } from '../models';
 import rawTrainers from '../../../trainers.json';
 
+// Map move names in the JSON dataset to their numeric IDs from moves.txt
+const moveNameToId: Record<string, number> = {};
+let movesLoaded = false;
+async function loadMoveIds() {
+  if (movesLoaded) return;
+  const res = await fetch('/moves.txt');
+  if (!res.ok) throw new Error('moves');
+  const text = await res.text();
+  text.split(/\r?\n/).forEach((line) => {
+    line = line.trim();
+    if (!line || line.startsWith('#')) return;
+    const parts = line.split(',');
+    const id = parseInt(parts[0], 10);
+    const name = parts[2]?.toUpperCase();
+    if (!isNaN(id) && name) moveNameToId[name] = id;
+  });
+  movesLoaded = true;
+}
+
 interface Props {
   setTeam: (t: TeamMon[]) => void;
   setPc: (p: PcMon[]) => void;
@@ -34,17 +53,32 @@ export default function ImportPanel({
     }
   };
 
-  const handleDefaultTrainers = () => {
+  const handleDefaultTrainers = async () => {
     try {
+      await loadMoveIds();
       const arr: Trainer[] = (rawTrainers as any[])
         .filter((t) => !/brock|joey/i.test(t.trainer || t.title || ''))
-        .map((t) => ({
-          title: t.trainer || t.title,
-          roster: (t.pokemons || []).map((p: any) =>
+        .map((t) => {
+          const roster = (t.pokemons || []).map((p: any) =>
             String(p.name || '').toLowerCase(),
-          ),
-          moves: (t.pokemons || []).map(() => []),
-        }));
+          );
+          const moves = (t.pokemons || []).map((p: any) =>
+            (p.moves || []).map((m: string) => moveNameToId[m.toUpperCase()] || 0).filter(Boolean),
+          );
+          const tips = (t.pokemons || []).map((p: any) => {
+            const arr: string[] = [];
+            if (p.item && !/ninguno/i.test(p.item)) arr.push(`Objeto: ${p.item}`);
+            if (p.ability && !/ninguno/i.test(p.ability)) arr.push(`Habilidad: ${p.ability}`);
+            return arr;
+          });
+          const anyTips = tips.some((tp: string[]) => tp.length > 0);
+          return {
+            title: t.trainer || t.title,
+            roster,
+            moves,
+            ...(anyTips ? { tips } : {}),
+          } as Trainer;
+        });
       setTrainers(arr);
       addLog(`Se cargaron ${arr.length} entrenadores del juego.`);
     } catch {
