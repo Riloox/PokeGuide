@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { parseRxdata } from '../lib/rxdata';
 import { TeamMon, PcMon, Trainer } from '../models';
-import defaultTrainers from '../../../data/trainers.json';
+import rawTrainers from '../../../trainers.json';
 
 interface Props {
   setTeam: (t: TeamMon[]) => void;
@@ -36,7 +36,15 @@ export default function ImportPanel({
 
   const handleDefaultTrainers = () => {
     try {
-      const arr: Trainer[] = defaultTrainers as unknown as Trainer[];
+      const arr: Trainer[] = (rawTrainers as any[])
+        .filter((t) => !/brock|joey/i.test(t.trainer || t.title || ''))
+        .map((t) => ({
+          title: t.trainer || t.title,
+          roster: (t.pokemons || []).map((p: any) =>
+            String(p.name || '').toLowerCase(),
+          ),
+          moves: (t.pokemons || []).map(() => []),
+        }));
       setTrainers(arr);
       addLog(`Se cargaron ${arr.length} entrenadores del juego.`);
     } catch {
