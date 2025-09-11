@@ -16,6 +16,7 @@ export default function TeamView({
   useEffect(() => {
     let cancelled = false;
     const enrich = async () => {
+      let changed = false;
       await Promise.all(
         team.map(async (m) => {
           if (!m.sprite || !m.types.length) {
@@ -23,6 +24,7 @@ export default function TeamView({
               const data = await getPokemon(m.species);
               m.sprite = data.sprite;
               m.types = data.types;
+              changed = true;
             } catch {
               /* ignore */
             }
@@ -30,13 +32,19 @@ export default function TeamView({
           if (m.ability && typeof m.ability === 'number') {
             try {
               const ab = await getAbility(m.ability);
-              if (ab) m.ability = ab;
+              if (ab) {
+                m.ability = ab;
+                changed = true;
+              }
             } catch {}
           }
           if (m.item && typeof m.item === 'number') {
             try {
               const it = await getItem(m.item);
-              if (it) m.item = it;
+              if (it) {
+                m.item = it;
+                changed = true;
+              }
             } catch {}
           }
           if (!m.moveNames || m.moveNames.length === 0) {
@@ -49,25 +57,29 @@ export default function TeamView({
                 m.moveNames.push(String(id));
               }
             }
+            changed = true;
           }
           if (!m.speciesName) {
             const num = parseInt(m.species, 10);
             if (!isNaN(num)) {
               try {
                 const nm = await getPokemonName(num);
-                if (nm) m.speciesName = nm;
+                if (nm) {
+                  m.speciesName = nm;
+                  changed = true;
+                }
               } catch {}
             }
           }
         }),
       );
-      if (!cancelled) setTeam([...team]);
+      if (!cancelled && changed) setTeam([...team]);
     };
     enrich();
     return () => {
       cancelled = true;
     };
-  }, [team, setTeam]);
+  }, [team]);
 
   return (
     <div className="p-4">
