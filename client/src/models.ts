@@ -16,6 +16,8 @@ export type PcMon = TeamMon;
 export type Trainer = {
   title: string;
   double?: boolean;
+  starting?: number;
   roster: (string | number)[];
   moves: number[][];
+  tips?: string[][];
 };

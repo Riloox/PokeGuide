@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  background-color: #8b0000;
+  background-color: #a8e0a8;
+  background-image:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 16px 16px;
+  image-rendering: pixelated;
   color: #fffae6;
-  font-family: 'Press Start 2P', monospace;
+  font-family: monospace;
 }
 
 button {
@@ -15,4 +18,8 @@ button {
   background-color: #ffcc00;
   color: #000;
   padding: 0.25rem 0.5rem;
+}
+
+img {
+  image-rendering: pixelated;
 }

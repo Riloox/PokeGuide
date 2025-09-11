@@ -111,6 +111,26 @@ export default function TeamView({
             >
               Al PC
             </button>
+            <button
+              className="mt-1 ml-1 text-xs border border-yellow-500 px-1"
+              onClick={() => {
+                const sp = prompt('Nueva especie', m.species);
+                if (sp) {
+                  const updated = {
+                    ...m,
+                    species: sp,
+                    speciesName: undefined,
+                    sprite: undefined,
+                    types: [],
+                  };
+                  const newTeam = [...team];
+                  newTeam[i] = updated;
+                  setTeam(newTeam);
+                }
+              }}
+            >
+              Corregir
+            </button>
           </div>
         ))}
       </div>
